@@ -1,0 +1,43 @@
+@import "../../common/variable.scss";
+.button {
+    padding: 8px 10px;
+    border-radius: $borderRadius;
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    font-weight: 300;
+    font-size: $normalFontsize;
+    outline: 0;
+    touch-action: manipulation;
+    user-select: none;
+    transition: opacity ease-in-out .3s;
+    &:active {
+        outline: 0;
+    }
+    &:focus {
+        outline: 0;
+    }
+    &:hover {
+        cursor: pointer;
+        opacity: .85;
+    }
+    &:disabled {
+        cursor: not-allowed;
+        opacity: .5;
+    }
+    &.default {
+        color: $darkGray;
+        background-color: $bgGray;
+        border: 1px solid $borderGray;
+    }
+    &.primary {
+        color: $white;
+        background-color: $primaryBlue;
+        border: 1px solid $primaryBlue;
+    }
+    &.danger {
+        color: $white;
+        background-color: $dangerColor;
+        border: 1px solid $dangerColor;
+    }
+}

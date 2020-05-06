@@ -1,0 +1,75 @@
+@import '../../common/variable.scss';
+
+.table-wrapper {
+    color: $darkGray;
+    font-size: $normalFontsize;
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid $lightGray;
+
+        thead {
+            background-color: $lightGray;
+
+            tr {
+                th {
+                    text-align: left;
+                    padding: 14px 16px;
+
+                    &:hover {
+                        cursor: pointer;
+                        color: $primaryBlue;
+                    }
+
+                    &.sort {
+                        .icon {
+                            transition: transform ease-in-out .5s;
+                            margin-left: 3px;
+                        }
+
+                        &.asc {}
+
+                        &.desc {
+                            .icon {
+                                transform: rotate(-180deg);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        tbody {
+            tr {
+                transition: background-color ease-in-out .5s;
+
+                &:hover {
+                    background-color: $bgGray;
+                }
+
+                &.selected {
+                    background-color: change-color($primaryBlue, $alpha: 0.1);
+                }
+
+                td {
+                    padding: 8px;
+                    border-top: 1px solid $lightGray;
+
+                    &:nth-child(1) {
+                        padding: 10px 16px;
+                    }
+
+                    &:nth-child(2) {
+                        padding: 10px 16px;
+                    }
+
+                    &.empty-data {
+                        text-align: center;
+                        height: 150px;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,16 @@
+$bgColor: #EFEFEF;
+body {
+    // background-color: $bgColor;
+}
+
+.app {
+    .table-wrapper {
+        padding: 10px;
+        .table-footer {
+            margin-top: 10px;
+            button {
+                margin-right: 8px;
+            }
+        }
+    }
+}
