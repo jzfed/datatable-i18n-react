@@ -5,7 +5,7 @@ import { dataIndex } from '../../dataIndex';
 
 const $$data = fromJS(data);
 
-let itemId = 5;
+let itemId = 10;
 
 export const reducer = (state = $$data, action) => {
     switch (action.type) {
