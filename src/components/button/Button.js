@@ -1,7 +1,7 @@
 import React from 'react'
 import './button.scss';
 
-export const Button = (props) => {
+export const Button = React.memo((props) => {
     const {
         type,
         ...restProps
@@ -14,4 +14,4 @@ export const Button = (props) => {
             {props.children}
         </button>
     );
-}
+});

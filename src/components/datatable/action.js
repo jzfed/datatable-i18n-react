@@ -33,12 +33,13 @@ export const del = ({ ids }) => {
     }
 }
 
-export const sort = ({ sortKey, sortOrder }) => {
+export const sort = ({ sortKey, sortOrder, sortType }) => {
     return {
         type: actionTypes.DATATABLE_SORT,
         payload: {
             sortKey,
             sortOrder,
+            sortType,
         }
     }
 }

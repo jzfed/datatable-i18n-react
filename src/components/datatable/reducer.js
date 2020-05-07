@@ -2,6 +2,7 @@ import { data } from '../../data';
 import * as actionTypes from './actionType';
 import { fromJS, Map } from 'immutable';
 import { dataIndex } from '../../dataIndex';
+import { sortSelector } from './selector';
 
 const $$data = fromJS(data);
 
@@ -27,17 +28,25 @@ export const reducer = (state = $$data, action) => {
             });
 
         case actionTypes.DATATABLE_SORT:
-            const {
-                sortKey,
-                sortOrder,
-            } = action.payload;
+            // const {
+            //     sortKey,
+            //     sortOrder,
+            //     sortType,
+            // } = action.payload;
 
-            const sortResult = state.sort((a, b) => {
-                // return sortOrder === 'asc' ? a.get(sortKey) - b.get(sortKey) : b.get(sortKey) - a.get(sortKey); //Number
-                return sortOrder === 'asc' ? a.get(sortKey).toString().localeCompare(b.get(sortKey)) : b.get(sortKey).toString().localeCompare(a.get(sortKey)); //String
-            });
-            // console.log(sortResult.toJS());
-            return sortResult;
+            // const sortResult = state.sort((a, b) => {
+            //     switch (sortType) {
+            //         case 'number':
+            //             return sortOrder === 'asc' ? a.get(sortKey) - b.get(sortKey) : b.get(sortKey) - a.get(sortKey); //Number
+            //         case 'string':
+            //             return sortOrder === 'asc' ? a.get(sortKey).toString().localeCompare(b.get(sortKey)) : b.get(sortKey).toString().localeCompare(a.get(sortKey)); //String
+            //         default:
+            //             return sortOrder === 'asc' ? a.get(sortKey).toString().localeCompare(b.get(sortKey)) : b.get(sortKey).toString().localeCompare(a.get(sortKey)); //String
+            //     }
+            // });
+            // // console.log(sortResult.toJS());
+            // return sortResult;
+            return sortSelector(state, action);
 
         case actionTypes.DATATABLE_ADD:
             const newItem = {};

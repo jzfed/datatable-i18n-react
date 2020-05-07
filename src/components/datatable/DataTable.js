@@ -11,7 +11,8 @@ import { Set, List } from 'immutable';
 
 const mapStateToProps = (state) => {
     return {
-        $$table: state.$$table
+        $$table: state.$$table,
+        locale: state.locale,
     }
 }
 
@@ -24,6 +25,7 @@ export const DataTable = connect(mapStateToProps)(injectIntl((props) => {
         defaultSortKey,
         defaultSortOrder,
         intl,
+        locale,
     } = props;
 
     // console.dir($$table);
@@ -32,6 +34,7 @@ export const DataTable = connect(mapStateToProps)(injectIntl((props) => {
     const [$$selectColumnIds, setSelect] = useState(new Set());
     const [sortKey, setSortKey] = useState(defaultSortKey);
     const [sortOrder, setSortOrder] = useState(defaultSortOrder);
+    const [sortType, setSortType] = useState('');
     // const [$$updateItem, setUpdateItem] = useState(new List());
     const dispatch = useDispatch();
     const stableDispatch = useCallback(dispatch, []);
@@ -60,12 +63,14 @@ export const DataTable = connect(mapStateToProps)(injectIntl((props) => {
         }
     }
 
-    const handleSort = (e) => {
-        const th = e.currentTarget;
-        setSortKey(th.id);
+    const handleSort = ({ sortType, sortKey }, e) => {
+        // const th = e.currentTarget;
+        setSortKey(sortKey);
+        setSortType(sortType);
         sortOrder ? sortOrder === 'asc' ? setSortOrder('desc') : setSortOrder('asc') : setSortOrder('asc');
         console.log('sortKey', sortKey);
         console.log('sortOrder', sortOrder);
+        console.log('sortType', sortType);
     }
 
     const handleUpdate = (index, key, id) => {
@@ -101,9 +106,9 @@ export const DataTable = connect(mapStateToProps)(injectIntl((props) => {
 
     useEffect(() => {
         if (sortKey && sortOrder) {
-            stableDispatch(sort({ sortKey, sortOrder }));
+            stableDispatch(sort({ sortKey, sortOrder, sortType }));
         }
-    }, [sortKey, sortOrder, stableDispatch, $$selectColumnIds]);
+    }, [sortKey, sortOrder, sortType, stableDispatch]);
 
     const TableBody = () => {
         if (tableData.length > 0) {
@@ -160,8 +165,13 @@ export const DataTable = connect(mapStateToProps)(injectIntl((props) => {
                                     width={fixColumnWidth[index] ? fixColumnWidth[index] : 'auto'}
                                     key={item[0]}
                                     className={item[0] === sortKey ? `sort ${sortOrder}` : ''}
-                                    id={item[0]}
-                                    onClick={handleSort}>
+                                    // id={item[0]}
+                                    // data-sortType={}
+                                    onClick={handleSort.bind(this, {
+                                        sortType: (item[0] === 'id' ? 'number' : 'string'),
+                                        sortKey: item[0],
+                                    })}
+                                >
                                     {translate(item[0])}
                                     {item[0] === sortKey ? <TriangleArrow size={12} /> : ''}
                                 </th>
@@ -174,13 +184,30 @@ export const DataTable = connect(mapStateToProps)(injectIntl((props) => {
             <div className="table-footer">
                 <Button type="danger"
                     disabled={$$selectColumnIds.size === 0}
-                    onClick={handleDelete}>
+                    onClick={handleDelete}
+                >
                     {translate('delete')}
                 </Button>
-                <Button type="primary" onClick={() => { dispatch(add()); }} disabled={$$selectColumnIds.size > 0}>{translate('add')}</Button>
+                <Button
+                    type="primary"
+                    onClick={() => { dispatch(add()); }}
+                    disabled={$$selectColumnIds.size > 0}
+                >
+                    {translate('add')}
+                </Button>
                 <Button disabled>{translate('update')}</Button>
-                <Button onClick={() => { dispatch(changeLanguage(LOCALES.ENGLISH)); }}>English</Button>
-                <Button onClick={() => { dispatch(changeLanguage(LOCALES.CHINESE)); }}>中文</Button>
+                <Button
+                    type={LOCALES.ENGLISH === locale ? 'primary' : 'default'}
+                    onClick={() => { dispatch(changeLanguage(LOCALES.ENGLISH)); }}
+                >
+                    English
+                </Button>
+                <Button
+                    type={LOCALES.CHINESE === locale ? 'primary' : 'default'}
+                    onClick={() => { dispatch(changeLanguage(LOCALES.CHINESE)); }}
+                >
+                    中文
+                </Button>
             </div>
         </div>
     );

@@ -25,7 +25,7 @@ I18N Data Table Project
   - react-intl
 
 - Preview
-  - [Prview it online.](https://datatable-i18n-2-966jv0xxd.now.sh/)
+  - [Prview it online.](https://datatable-i18n-2.now.sh/)
 
 - Reference
   - [formatjs](https://github.com/formatjs/formatjs)
