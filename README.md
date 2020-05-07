@@ -17,6 +17,13 @@ I18N Data Table Project
   - [x] Develop the simple version.
   - [x] Implement the i18n support.
 
+- Technology stack
+  - React
+  - Redux
+  - react-redux
+  - immutable
+  - react-intl
+
 - Preview
   - [Prview it online.](https://datatable-i18n-2-966jv0xxd.now.sh/)
 
