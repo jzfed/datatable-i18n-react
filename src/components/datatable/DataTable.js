@@ -1,13 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import { connect, useDispatch } from 'react-redux';
 import './datatable.scss';
 import { Button } from '../button';
 import { Input } from '../input';
 import { TriangleArrow } from '../icons';
-import { add, update, del, sort } from './action';
-import { injectIntl } from 'react-intl';
+import { useSortHook, useSelectHook, useUpdateHook, useAddHook } from './customHooks';
 import { changeLanguage, LOCALES, translate } from '../../i18n';
-import { Set, Map } from 'immutable';
 
 const mapStateToProps = (state) => {
     return {
@@ -16,150 +14,39 @@ const mapStateToProps = (state) => {
     }
 }
 
-export const DataTable = connect(mapStateToProps)(injectIntl((props) => {
+export const EditableDataTable = connect(mapStateToProps)((props) => {
     const {
         $$table,
         checkbox,
         indexNames,
         fixColumnWidth,
-        defaultSortKey,
-        defaultSortOrder,
         intl,
         locale,
     } = props;
 
+    const dispatch = useDispatch();
     // console.dir($$table);
     const tableData = $$table.toJS();
-    const [selecteAll, setSelectAll] = useState(false);
-    const [$$selectColumnIds, setSelect] = useState(Set());
-    const [$$sortData, setSort] = useState(Map());
-    const [$$updateItem, setUpdateItem] = useState(Map());
+    const [$$sortData, handleSort] = useSortHook();
+    const [
+        isSelecteAll,
+        $$selectColumnIds,
+        handleSelect,
+        hanldeSelectAll,
+        handleDelete
+    ] = useSelectHook(tableData);
+    const [
+        $$updateItem,
+        isEditable,
+        handleInputDoubleClick,
+        handleInputValueChange,
+        handleInputBlur,
+        handleInputFocus,
+        handleSaveUpdate,
+    ] = useUpdateHook(intl);
+    const [handleAdd] = useAddHook();
 
-    const dispatch = useDispatch();
-    const stableDispatch = useCallback(dispatch, []);
 
-    const handleSelect = (e) => {
-        const checkbox = e.currentTarget;
-        // console.dir(checkbox);
-        const id = parseInt(checkbox.id);
-        if ($$selectColumnIds.has(id)) {
-            setSelect($$selectColumnIds.delete(id));
-        } else {
-            setSelect($$selectColumnIds.add(id));
-        }
-
-    }
-
-    const hanldeSelectAll = (e) => {
-        const checkbox = e.currentTarget;
-        const isChecked = checkbox.checked;
-        if (isChecked) {
-            setSelect($$selectColumnIds.concat(tableData.map(item => item.id)));
-            setSelectAll(true);
-        } else {
-            setSelect($$selectColumnIds.clear());
-            setSelectAll(false);
-        }
-        console.log($$selectColumnIds.toJS());
-    }
-
-    const handleSort = ({ sortType, sortKey }, e) => {
-        // const th = e.currentTarget;
-        const sortObj = {
-            sortType,
-            sortKey,
-        };
-        $$sortData.get('sortOrder')
-            ? $$sortData.get('sortOrder') === 'asc'
-                ? sortObj.sortOrder = 'desc'
-                : sortObj.sortOrder = 'asc'
-            : sortObj.sortOrder = 'asc'
-        // console.log(sortObj);
-        setSort($$sortData.concat(Map(sortObj)));
-        // console.log($$sortData.toJS());
-    }
-
-    const handleInputDoubleClick = (editItemInfo) => {
-        if ($$updateItem.size > 0) {
-            setUpdateItem($$updateItem.merge(Map(editItemInfo)));
-            return;
-        }
-        setUpdateItem($$updateItem.merge(Map(editItemInfo)));
-    }
-
-    const handleInputValueChange = (value) => {
-        setUpdateItem($$updateItem.merge(Map({ value })));
-        // console.log(value);
-    }
-
-    const handleInputBlur = (inputDom) => {
-        if (isEditable) {
-            // let ignoreConfirm = window.confirm(intl.formatMessage({ id: 'ignoreUpdate' }));
-            // if (ignoreConfirm) {
-            //     setUpdateItem($$updateItem.clear());
-            // } else {
-            //     // inputDom.focus();
-            // }
-            inputDom.focus();
-            handleSaveUpdate();
-            return;
-        };
-        setUpdateItem($$updateItem.clear());
-    }
-
-    const handleInputFocus = () => {
-        // setUpdateItem($$updateItem.merge(Map({
-        //     'warning': true
-        // })));
-    }
-
-    const handleSaveUpdate = () => {
-        const index = $$updateItem.get('editItemIndex');
-        const key = $$updateItem.get('editColumnKey');
-        const id = $$updateItem.get('editItemId');
-        const value = $$updateItem.get('value');;
-        let doUpdate = window.confirm(intl.formatMessage({ id: 'updateConfirm' }, { id, key, value }));
-        if (doUpdate) {
-            dispatch(update({
-                index,
-                key,
-                id,
-                value,
-            }));
-        } else {
-
-        }
-        setUpdateItem($$updateItem.clear());
-
-    }
-
-    const handleDelete = (e) => {
-        dispatch(del({ ids: $$selectColumnIds.toJS() }));
-        setSelectAll(false);
-        setSelect($$selectColumnIds.clear());
-        console.log($$selectColumnIds.toJS())
-    }
-
-    useEffect(() => {
-        console.log('Component did mount.');
-        return () => {
-            console.log('Component will ummount.');
-        }
-    }, []);
-
-    useEffect(() => {
-        console.log('$$sortData changed.');
-        if ($$sortData.get('sortKey') && $$sortData.get('sortOrder') && $$sortData.get('sortType')) {
-            stableDispatch(sort($$sortData.toObject()));
-        }
-        console.log('sortKey', $$sortData.get('sortKey'));
-        console.log('sortOrder', $$sortData.get('sortOrder'));
-        console.log('sortType', $$sortData.get('sortType'));
-
-    }, [$$sortData, stableDispatch]);
-
-    //Interaction status
-    const isEditable = $$updateItem.size > 0 && $$updateItem.get('value') && $$updateItem.get('originalValue') !== $$updateItem.get('value');
 
     const thClass = (keyName) => {
         const classList = [];
@@ -186,7 +73,7 @@ export const DataTable = connect(mapStateToProps)(injectIntl((props) => {
                 <thead>
                     <tr>
                         {
-                            checkbox && <th width="2%"><input type="checkbox" disabled={isEditable} checked={selecteAll} readOnly onChange={hanldeSelectAll} /></th>
+                            checkbox && <th width="2%"><input type="checkbox" disabled={isEditable} checked={isSelecteAll} readOnly onChange={hanldeSelectAll} /></th>
                         }
                         {
                             indexNames && Object.entries(indexNames).map((item, index) =>
@@ -272,7 +159,7 @@ export const DataTable = connect(mapStateToProps)(injectIntl((props) => {
                 </Button>
                 <Button
                     type="primary"
-                    onClick={() => { dispatch(add()); }}
+                    onClick={handleAdd}
                     disabled={$$selectColumnIds.size > 0 || isEditable}
                 >
                     {translate('add')}
@@ -299,4 +186,4 @@ export const DataTable = connect(mapStateToProps)(injectIntl((props) => {
             </div>
         </div>
     );
-}));
+});

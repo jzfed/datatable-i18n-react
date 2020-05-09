@@ -1,4 +1,4 @@
-import { DataTable } from './DataTable';
+import { EditableDataTable } from './DataTable';
 import { reducer } from './reducer';
 
-export { DataTable, reducer };
+export { EditableDataTable, reducer };
