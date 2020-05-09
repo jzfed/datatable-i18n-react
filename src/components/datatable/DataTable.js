@@ -61,14 +61,66 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
     const trClass = (rowItem, rowIndex) => {
         const classList = [];
         if ($$selectColumnIds.has(rowItem.id)) classList.push('selected');
-        if (isEditable && $$updateItem.get('editItemId') === rowItem.id) classList.push('editable');
+        // if (isEditable && $$updateItem.get('editItemId') === rowItem.id) classList.push('editable');
         // if (isEditable && $$updateItem.get('editItemId') === rowItem.id && $$updateItem.get('warning')) classList.push('warning');
         return classList.join(' ');
         // return $$selectColumnIds.has(rowItem.id) ? 'selected' : '' +  ? ' editable' : '' +  ? ' warning' : '';
     };
 
+    const tdClass = (keyName, rowItem) => {
+        const classList = [];
+        if (keyName === $$sortData.get('sortKey')) classList.push('sort');
+        if (isEditable && $$updateItem.get('editItemId') === rowItem.id && keyName === $$updateItem.get('editColumnKey')) classList.push('editable');
+        return classList.join(' ');
+    };
+
     return (
         <div className="table-wrapper">
+            <div className="table-toolbar">
+                <div className="table-action">
+                    <Button
+                        type="primary"
+                        round={true}
+                        onClick={handleAdd}
+                        disabled={$$selectColumnIds.size > 0 || isEditable}
+                    >
+                        {translate('add')}
+                    </Button>
+                    <Button
+                        disabled={!isEditable}
+                        round={true}
+                        type="primary"
+                        highlight={isEditable}
+                        onClick={handleSaveUpdate}
+                    >
+                        {translate('update')}
+                    </Button>
+                    <Button type="danger"
+                        round={true}
+                        disabled={$$selectColumnIds.size === 0 || isEditable}
+                        onClick={handleDelete}
+                    >
+                        {translate('delete')}
+                    </Button>
+                </div>
+
+                <div className="language-switcher">
+                    <Button
+                        type={LOCALES.ENGLISH === locale ? 'primary' : 'default'}
+                        size="small"
+                        onClick={() => { dispatch(changeLanguage(LOCALES.ENGLISH)); }}
+                    >
+                        English
+                </Button>
+                    <Button
+                        type={LOCALES.CHINESE === locale ? 'primary' : 'default'}
+                        size="small"
+                        onClick={() => { dispatch(changeLanguage(LOCALES.CHINESE)); }}
+                    >
+                        中 文
+                </Button>
+                </div>
+            </div>
             <table>
                 <thead>
                     <tr>
@@ -109,7 +161,7 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
                                             Object.entries(rowItem).map(item =>
                                                 <td
                                                     key={item[0]}
-                                                    className={item[0] === $$sortData.get('sortKey') ? `sort` : ''}
+                                                    className={tdClass(item[0], rowItem)}
                                                 >
                                                     {
                                                         item[0] === 'id' ? item[1] :
@@ -150,40 +202,7 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
                 }
 
             </table>
-            <div className="table-footer">
-                <Button type="danger"
-                    disabled={$$selectColumnIds.size === 0 || isEditable}
-                    onClick={handleDelete}
-                >
-                    {translate('delete')}
-                </Button>
-                <Button
-                    type="primary"
-                    onClick={handleAdd}
-                    disabled={$$selectColumnIds.size > 0 || isEditable}
-                >
-                    {translate('add')}
-                </Button>
-                <Button
-                    disabled={!isEditable}
-                    type="primary"
-                    onClick={handleSaveUpdate}
-                >
-                    {translate('update')}
-                </Button>
-                <Button
-                    type={LOCALES.ENGLISH === locale ? 'primary' : 'default'}
-                    onClick={() => { dispatch(changeLanguage(LOCALES.ENGLISH)); }}
-                >
-                    English
-                </Button>
-                <Button
-                    type={LOCALES.CHINESE === locale ? 'primary' : 'default'}
-                    onClick={() => { dispatch(changeLanguage(LOCALES.CHINESE)); }}
-                >
-                    中文
-                </Button>
-            </div>
+
         </div>
     );
 });

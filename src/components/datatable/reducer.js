@@ -50,8 +50,8 @@ export const reducer = (state = $$data, action) => {
 
         case actionTypes.DATATABLE_ADD:
             const newItem = {};
-            Object.keys(dataIndex).forEach(key => {
-                newItem[key] = ' ';
+            Object.entries(dataIndex).forEach(([key, val]) => {
+                newItem[key] = val.toLowerCase();
             });
             newItem['id'] = itemId++;
             return state.push(fromJS(newItem));

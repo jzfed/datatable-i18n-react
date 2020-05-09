@@ -15,7 +15,7 @@ export const Input = React.memo((props) => {
         selected,
     } = props;
 
-    const [inputValue, setInputValue] = useState(val);
+    const [inputValue, setInputValue] = useState(val || '');
     const inputEl = useRef(null);
     const placeHolderEl = useRef(null);
 

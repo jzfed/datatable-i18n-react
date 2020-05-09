@@ -1,12 +1,12 @@
-@import "../../common/variable.scss";
-.button {
+@import '../../common/scss/common.scss';
+
+.#{$prefix}button {
     padding: 8px 10px;
-    border-radius: $borderRadius;
+    
     display: inline-block;
     text-align: center;
     white-space: nowrap;
     font-weight: 300;
-    font-size: $normalFontsize;
     outline: 0;
     touch-action: manipulation;
     user-select: none;
@@ -25,6 +25,15 @@
         cursor: not-allowed;
         opacity: .5;
     }
+    &.round-border{
+        border-radius: $borderRadius;
+    }
+    &.highlight{
+        border-radius: 0;
+        animation: borderHighlight 2s ease-in-out infinite;
+    }
+
+    //color
     &.default {
         color: $darkGray;
         background-color: $bgGray;
@@ -39,5 +48,15 @@
         color: $white;
         background-color: $dangerColor;
         border: 1px solid $dangerColor;
+    }
+    //size
+    &.normal {
+        font-size: $normalFontsize;
+    }
+    &.small {
+        font-size: $smallFontsize;
+    }
+    &.big {
+        font-size: $bigFontsize;
     }
 }

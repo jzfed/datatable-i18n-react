@@ -1,14 +1,23 @@
 import React from 'react'
 import './button.scss';
+import { CLASS_PREFIX } from '../../common/js/constant';
 
 export const Button = React.memo((props) => {
     const {
         type,
+        size,
+        highlight,
+        round,
         ...restProps
     } = props;
-    const prefixClass = `button`;
-    const colorClass = type ? ` ${type}` : ` default`;
-    const mergeClass = `${prefixClass}${colorClass}`;
+
+    const classList = [];
+    classList.push(`${CLASS_PREFIX}button`);
+    type ? classList.push(type) : classList.push('default');
+    size ? classList.push(size) : classList.push('normal');
+    highlight && classList.push('highlight');
+    round && classList.push('round-border');
+    const mergeClass = classList.join(' ');
     return (
         <button className={mergeClass} {...restProps}>
             {props.children}

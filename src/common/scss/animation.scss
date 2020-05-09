@@ -1,0 +1,35 @@
+@keyframes borderHighlight{
+    0%{ 
+        outline: 1px solid $primaryBlue;
+        box-shadow: 0 0 0 3px change-color($primaryBlue, $alpha: 0.3);
+    }
+    50%{ 
+        outline: 1px solid transparent;
+        box-shadow: 0 0 0 0px change-color($primaryBlue, $alpha: 0.3);
+    }
+    100%{ 
+        outline: 1px solid $primaryBlue;
+        box-shadow: 0 0 0 3px change-color($primaryBlue, $alpha: 0.3);
+    }
+}
+
+@keyframes bgColorHighlight{
+    0%{ 
+        background-color: change-color($primaryBlue, $alpha: 0.3);
+    }
+    50%{ 
+        background-color: change-color($primaryBlue, $alpha: 0);
+    }
+    100%{ 
+        background-color: change-color($primaryBlue, $alpha: 0.3);
+    }
+}
+
+
+@keyframes borderWarning{
+    0% {outline-color: $primaryBlue;}
+    25% {outline-color: $dangerColor;}
+    50% {outline-color: $primaryBlue;}
+    75% {outline-color: $dangerColor;}
+    100% {outline-color: $primaryBlue;}
+}

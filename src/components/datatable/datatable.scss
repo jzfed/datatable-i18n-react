@@ -1,21 +1,45 @@
-@import '../../common/variable.scss';
+@import '../../common/scss/common.scss';
 
 .table-wrapper {
     color: $darkGray;
     font-size: $normalFontsize;
+    margin:10px;
+    
+
+    .table-toolbar {
+        display: flex;
+        padding: 10px 10px;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        border: 1px solid $white;
+        background-color: $white;
+        box-shadow: 0 0 4px $borderGray;
+        .table-action{
+            button {
+                margin-right: 8px;
+            }
+        }
+
+        .language-switcher{
+
+        }
+    }
 
     table {
         border-collapse: collapse;
         width: 100%;
-        border: 1px solid $lightGray;
-
+        border: 1px solid $white;
+        background-color: $white;
+        box-shadow: 0 0 4px $borderGray;
         thead {
-            background-color: $lightGray;
-
+            // background: linear-gradient(0deg,$lightGray 0%, $bgGray 100%);
+            
             tr {
+                
                 th {
+                    border-bottom: 1px solid $borderGray;
                     text-align: left;
-                    padding: 14px 16px;
+                    padding: 20px 16px;
                     user-select: none;
                     &:hover {
                         cursor: pointer;
@@ -50,24 +74,30 @@
             tr {
                 transition: background-color ease-in-out .5s, outline ease-in-out .3s;;
 
-                &:hover {
+                &:nth-child(odd){
                     background-color: $bgGray;
-                }
+                }                
 
-                &.selected {
+                &:hover {
                     background-color: change-color($primaryBlue, $alpha: 0.1);
                 }
 
+                &.selected {
+                    outline: 1px solid change-color($dangerColor, $alpha: 0.5);
+                    background-color: change-color($dangerColor, $alpha: 0.02);
+                }
+
                 &.editable{
-                    outline: 1px solid $primaryBlue;
-                    animation: borderHighlight 2s ease-in-out infinite;
+                    // outline: 1px solid $primaryBlue;
+                    // animation: borderHighlight 2s ease-in-out infinite;
                     &.warning{
                         animation: borderWarning 2s linear infinite;
                     }
                 }
 
+
                 td {
-                    padding: 8px;
+                    padding: 8px 8px;
                     border-top: 1px solid $lightGray;
 
                     &:nth-child(1) {
@@ -79,7 +109,12 @@
                     }
 
                     &.sort {
-                        background-color: $bgGray;
+                        background-color: change-color($primaryBlue, $alpha: 0.1);
+                    }
+
+                    &.editable{
+                        // outline: 1px solid $primaryBlue;
+                        animation: bgColorHighlight 2s ease-in-out infinite;                        
                     }
 
                     &.empty-data {
@@ -92,26 +127,3 @@
     }
 }
 
-@keyframes borderHighlight{
-    0%{ 
-        outline: 1px solid $primaryBlue;
-        box-shadow: 0 0 0 3px change-color($primaryBlue, $alpha: 0.3);
-    }
-    50%{ 
-        outline: 1px solid transparent;
-        box-shadow: 0 0 0 0px change-color($primaryBlue, $alpha: 0.3);
-    }
-    100%{ 
-        outline: 1px solid $primaryBlue;
-        box-shadow: 0 0 0 3px change-color($primaryBlue, $alpha: 0.3);
-    }
-}
-
-
-@keyframes borderWarning{
-    0% {outline-color: $primaryBlue;}
-    25% {outline-color: $dangerColor;}
-    50% {outline-color: $primaryBlue;}
-    75% {outline-color: $dangerColor;}
-    100% {outline-color: $primaryBlue;}
-}
