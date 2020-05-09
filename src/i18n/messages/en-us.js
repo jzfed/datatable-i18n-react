@@ -7,6 +7,7 @@ export default {
         'update': 'Update',
         'noData': 'No data.',
         'updateConfirm': 'Do you want to update the row [{id}] and the column [{key}] with the value [{value}]?',
+        'ignoreUpdate': 'Are you sure to ignore updates?',
         'id': 'ID',
         'name': 'Name',
         'location': 'Location',

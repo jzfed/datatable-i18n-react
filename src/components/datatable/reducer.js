@@ -1,6 +1,6 @@
 import { data } from '../../data';
 import * as actionTypes from './actionType';
-import { fromJS, Map } from 'immutable';
+import { fromJS } from 'immutable';
 import { dataIndex } from '../../dataIndex';
 import { sortSelector } from './selector';
 

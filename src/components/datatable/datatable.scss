@@ -22,7 +22,13 @@
                         color: $primaryBlue;
                     }
 
+                    &.disabled{
+                        color: $borderGray;
+                        cursor: not-allowed;
+                    }
+
                     &.sort {
+                        color: $primaryBlue;
                         .icon {
                             transition: transform ease-in-out .5s;
                             margin-left: 3px;
@@ -42,7 +48,7 @@
 
         tbody {
             tr {
-                transition: background-color ease-in-out .5s;
+                transition: background-color ease-in-out .5s, outline ease-in-out .3s;;
 
                 &:hover {
                     background-color: $bgGray;
@@ -50,6 +56,14 @@
 
                 &.selected {
                     background-color: change-color($primaryBlue, $alpha: 0.1);
+                }
+
+                &.editable{
+                    outline: 1px solid $primaryBlue;
+                    animation: borderHighlight 2s ease-in-out infinite;
+                    &.warning{
+                        animation: borderWarning 2s linear infinite;
+                    }
                 }
 
                 td {
@@ -64,6 +78,10 @@
                         padding: 10px 16px;
                     }
 
+                    &.sort {
+                        background-color: $bgGray;
+                    }
+
                     &.empty-data {
                         text-align: center;
                         height: 150px;
@@ -72,4 +90,28 @@
             }
         }
     }
+}
+
+@keyframes borderHighlight{
+    0%{ 
+        outline: 1px solid $primaryBlue;
+        box-shadow: 0 0 0 3px change-color($primaryBlue, $alpha: 0.3);
+    }
+    50%{ 
+        outline: 1px solid transparent;
+        box-shadow: 0 0 0 0px change-color($primaryBlue, $alpha: 0.3);
+    }
+    100%{ 
+        outline: 1px solid $primaryBlue;
+        box-shadow: 0 0 0 3px change-color($primaryBlue, $alpha: 0.3);
+    }
+}
+
+
+@keyframes borderWarning{
+    0% {outline-color: $primaryBlue;}
+    25% {outline-color: $dangerColor;}
+    50% {outline-color: $primaryBlue;}
+    75% {outline-color: $dangerColor;}
+    100% {outline-color: $primaryBlue;}
 }

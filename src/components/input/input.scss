@@ -19,6 +19,11 @@
             border: 1px solid $primaryBlue;
             box-shadow: 0 0 0 2px change-color($primaryBlue, $alpha: 0.3);
         }
+
+        &.warning {
+            border: 1px solid $dangerColor;
+            box-shadow: 0 0 0 2px change-color($dangerColor, $alpha: 0.3);
+        }
     }
 
     .placeholder-text {

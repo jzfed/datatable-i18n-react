@@ -5,8 +5,7 @@ import { store } from './store';
 import { Provider } from 'react-redux';
 import { dataIndex } from './dataIndex';
 
-import { I18nProvider, LOCALES, translate } from './i18n';
-import { FormattedMessage } from "react-intl";
+import { I18nProvider, LOCALES } from './i18n';
 
 function App() {
     return (
