@@ -16,6 +16,9 @@ I18N Data Table Project
   - [x] Develop base components.
   - [x] Develop the simple version.
   - [x] Implement the i18n support.
+  - [x] Optimize the logic of data update.
+  - [x] Code refactoring.
+  - [ ] Optimize the logic of adding new data.
 
 - Technology stack
   - React
