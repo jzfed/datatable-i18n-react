@@ -6,7 +6,7 @@ import { sortSelector } from './selector';
 
 const $$data = fromJS(data);
 
-let itemId = 10;
+let itemId = $$data.size;
 
 export const reducer = (state = $$data, action) => {
     switch (action.type) {
@@ -53,7 +53,7 @@ export const reducer = (state = $$data, action) => {
             Object.entries(dataIndex).forEach(([key, val]) => {
                 newItem[key] = val.toLowerCase();
             });
-            newItem['id'] = itemId++;
+            newItem['id'] = ++itemId;
             return state.push(fromJS(newItem));
 
         default:
