@@ -53,6 +53,8 @@
 
                     &.sort {
                         color: $primaryBlue;
+                        background-color: change-color($primaryBlue, $alpha: 0.1);
+                        border-top: 1px solid $white;
                         .icon {
                             transition: transform ease-in-out .5s;
                             margin-left: 3px;

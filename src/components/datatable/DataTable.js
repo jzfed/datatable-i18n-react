@@ -4,6 +4,7 @@ import './datatable.scss';
 import { Button } from '../button';
 import { Input } from '../input';
 import { TriangleArrow } from '../icons';
+import tinygradient from 'tinygradient';
 import { useSortHook, useSelectHook, useUpdateHook, useAddHook } from './customHooks';
 import { changeLanguage, LOCALES, translate } from '../../i18n';
 
@@ -46,7 +47,10 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
     ] = useUpdateHook(intl);
     const [handleAdd] = useAddHook();
 
-
+    const gradient = tinygradient('#e2f1ff', '#6fbaff');
+    const sortItemBgColorArr = gradient.rgb(tableData.length).map(tinyColor => tinyColor.toHexString());
+    if ($$sortData.get('sortOrder') === 'desc') sortItemBgColorArr.reverse();
+    // console.log(sortItemBgColorArr);
 
     const thClass = (keyName) => {
         const classList = [];
@@ -162,6 +166,7 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
                                                 <td
                                                     key={item[0]}
                                                     className={tdClass(item[0], rowItem)}
+                                                    style={item[0] === $$sortData.get('sortKey') ? { backgroundColor: sortItemBgColorArr[rowIndex] } : {}}
                                                 >
                                                     {
                                                         item[0] === 'id' ? item[1] :
