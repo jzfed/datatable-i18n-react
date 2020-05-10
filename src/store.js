@@ -8,7 +8,7 @@ const win = window;
 
 const enhancers = compose(
     applyMiddleware(...middlewares),
-    win.__REDUX_DEVTOOLS_EXTENSION__ && win.__REDUX_DEVTOOLS_EXTENSION__()
+    win.__REDUX_DEVTOOLS_EXTENSION__ ? win.__REDUX_DEVTOOLS_EXTENSION__() : f => f
 );
 
 const reducers = combineReducers({
