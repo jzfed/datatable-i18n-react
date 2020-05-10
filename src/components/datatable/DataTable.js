@@ -35,14 +35,25 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
         hanldeSelectAll,
         handleDelete
     ] = useSelectHook(tableData, intl);
+
+    // const [
+    //     $$editItem,
+    //     handleEditItemMouseout,
+    //     handlePlaceholderClick,
+    // ] = useEditItemHook();
+
     const [
+        $$editItem,
         $$updateItem,
         isEditable,
+        handleEditClick,
+        handlePlaceholderClick,
         handleInputDoubleClick,
         handleInputValueChange,
         handleInputBlur,
         handleInputFocus,
         handleSaveUpdate,
+        handlePlaceHolderBlur,
     ] = useUpdateHook(intl);
     const [handleAdd] = useAddHook();
 
@@ -73,26 +84,28 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
         const classList = [];
         if (keyName === $$sortData.get('sortKey')) classList.push('sort');
         if (isEditable && $$updateItem.get('updateItemId') === rowItem.id && keyName === $$updateItem.get('editColumnKey')) classList.push('editable');
+        // if ($$editItem.get('editItemId') === rowItem.id && keyName === $$editItem.get('editColumnKey')) classList.push('selected');
         return classList.join(' ');
     };
 
     return (
-        <div className="table-wrapper">
+        <div className="table-wrapper" >
             <div className="table-toolbar">
                 <div className="table-action">
                     <Button
                         type="primary"
                         round={true}
                         onClick={handleAdd}
-                        disabled={$$selectColumnIds.size > 0 || isEditable}
+                        disabled={$$selectColumnIds.size > 0 || $$updateItem.size > 0 || $$editItem.size > 0}
                     >
                         {translate('add')}
                     </Button>
                     <Button
-                        disabled={isEditable}
+                        disabled={$$editItem.size === 0 || isEditable}
                         round={true}
                         type="primary"
-                        onClick={handleSaveUpdate}
+                        highlight={$$editItem.size > 0}
+                        onMouseDown={handleEditClick}
                     >
                         {translate('edit')}
                     </Button>
@@ -101,7 +114,7 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
                         round={true}
                         type="primary"
                         highlight={isEditable}
-                        onClick={handleSaveUpdate}
+                        onMouseDown={handleSaveUpdate}
                     >
                         {translate('update')}
                     </Button>
@@ -179,6 +192,7 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
                                                         item[0] === 'id' ? item[1] :
                                                             <Input
                                                                 val={item[1]}
+                                                                selected={$$editItem.get('updateItemId') === rowItem.id && item[0] === $$editItem.get('editColumnKey')}
                                                                 isInput={$$updateItem.get('updateItemId') === rowItem.id && $$updateItem.get('editColumnKey') === item[0]}
                                                                 onPlaceholderDoubleClick={
                                                                     handleInputDoubleClick.bind(this,
@@ -190,6 +204,18 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
                                                                         },
                                                                     )
                                                                 }
+                                                                // onPlaceholderMouseout={handleEditItemMouseout}
+                                                                onPlaceholderClick={
+                                                                    handlePlaceholderClick.bind(this,
+                                                                        {
+                                                                            updateItemId: rowItem.id,
+                                                                            updateItemIndex: rowIndex,
+                                                                            editColumnKey: item[0],
+                                                                            originalValue: item[1],
+                                                                        },
+                                                                    )
+                                                                }
+                                                                onPlaceHolderBlur={handlePlaceHolderBlur}
                                                                 onValueChange={handleInputValueChange}
                                                                 onInputBlur={handleInputBlur}
                                                                 onInputFocus={handleInputFocus}

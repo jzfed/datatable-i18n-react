@@ -42,7 +42,7 @@
         border: 1px solid $primaryBlue;
         &.highlight{
             border-radius: 0;
-            animation: borderHighlightBlue 2s ease-in-out infinite;
+            animation: borderHighlightBlue $animationNormalDuration ease-in-out infinite;
         }
     }
     &.danger {
@@ -51,7 +51,8 @@
         border: 1px solid $dangerColor;
         &.highlight{
             border-radius: 0;
-            animation: borderHighlightRed 2s ease-in-out infinite;
+            animation: borderHighlightRed $animationNormalDuration ease-in-out infinite;
+            animation: name duration timing-function delay iteration-count direction fill-mode;
         }
     }
     //size

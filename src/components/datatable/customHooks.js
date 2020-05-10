@@ -96,19 +96,35 @@ export const useSelectHook = (tableData, intl) => {
     ];
 }
 
-//Edit hook 
-export const editItem = () => {
-
-}
-
 
 //Update hook 
 export const useUpdateHook = (intl) => {
     const dispatch = useDispatch();
     const [$$updateItem, setUpdateItem] = useState(Map());
+    const [$$editItem, setEditItem] = useState(Map());
 
     //Interaction status
     const isEditable = $$updateItem.size > 0 && $$updateItem.get('value') !== undefined && $$updateItem.get('originalValue') !== $$updateItem.get('value');
+
+    const handlePlaceholderClick = (editItemInfo) => {
+        setEditItem($$editItem.merge(Map(editItemInfo)));
+    }
+
+    const handlePlaceHolderBlur = () => {
+        clearEditItems();
+    }
+
+    const clearEditItems = () => {
+        if ($$editItem.size > 0) {
+            setEditItem($$editItem.clear());
+        }
+
+    }
+
+    const handleEditClick = () => {
+        setUpdateItem($$updateItem.merge(Map($$editItem.toJS())));
+        clearEditItems();
+    }
 
     const handleInputDoubleClick = (updateItemInfo) => {
         // if ($$updateItem.size > 0) {
@@ -116,6 +132,7 @@ export const useUpdateHook = (intl) => {
         //     return;
         // }
         setUpdateItem($$updateItem.merge(Map(updateItemInfo)));
+        clearEditItems();
     }
 
     const handleInputValueChange = (value) => {
@@ -168,13 +185,17 @@ export const useUpdateHook = (intl) => {
     }
 
     return [
+        $$editItem,
         $$updateItem,
         isEditable,
+        handleEditClick,
+        handlePlaceholderClick,
         handleInputDoubleClick,
         handleInputValueChange,
         handleInputBlur,
         handleInputFocus,
         handleSaveUpdate,
+        handlePlaceHolderBlur,
     ];
 }
 

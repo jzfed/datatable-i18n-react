@@ -6,8 +6,12 @@ export const Input = React.memo((props) => {
     const {
         val,
         isInput,
+        inputClass,
+        placeHolderClass,
+        onPlaceHolderBlur,
         onPlaceholderClick,
         onPlaceholderDoubleClick,
+        onPlaceholderMouseout,
         onEnterPress,
         onInputBlur,
         onInputFocus,
@@ -16,8 +20,20 @@ export const Input = React.memo((props) => {
     } = props;
 
     const [inputValue, setInputValue] = useState(val || '');
+    const [tabIndex, setTabindex] = useState(-1);
     const inputEl = useRef(null);
     const placeHolderEl = useRef(null);
+
+    const handlePlaceHolderClick = () => {
+        setTabindex(0);
+        onPlaceholderClick && onPlaceholderClick(inputEl.current);
+    }
+
+    const handlePlaceHolderBlur = () => {
+        setTabindex(-1);
+        onPlaceHolderBlur && onPlaceHolderBlur();
+
+    }
 
     const handlePlaceholderDoubleClick = () => {
         onPlaceholderDoubleClick && onPlaceholderDoubleClick(inputEl.current);
@@ -54,12 +70,15 @@ export const Input = React.memo((props) => {
     return (
         <div className="input-wrapper">
             {isInput
-                ? <input ref={inputEl} type="text" value={inputValue} onFocus={handleInputFocus} onChange={handleChange} onKeyDown={handleEnterPress} onBlur={handleInputBlur} />
+                ? <input ref={inputEl} type="text" value={inputValue} onFocus={handleInputFocus} onChange={handleChange} onKeyDown={handleEnterPress} onBlur={handleInputBlur} className={inputClass} />
                 : <div
                     ref={placeHolderEl}
                     className={selected ? 'placeholder-text selected' : 'placeholder-text'}
-                    onClick={onPlaceholderClick}
+                    onClick={handlePlaceHolderClick}
+                    onMouseOut={onPlaceholderMouseout}
                     onDoubleClick={handlePlaceholderDoubleClick}
+                    onBlur={handlePlaceHolderBlur}
+                    tabIndex={tabIndex}
                 >
                     {val}
                 </div>

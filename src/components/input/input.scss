@@ -38,7 +38,7 @@
         }
 
         &.selected {
-            border: 1px solid $borderGray;
+            animation: borderHighlightBlue 2s ease-in-out infinite;
         }
     }
 }

@@ -5,7 +5,7 @@ export default {
         'add': 'Add',
         'delete': 'Delete',
         'update': 'Update',
-        'edit': 'edit',
+        'edit': 'Edit',
         'noData': 'No data.',
         'updateConfirm': 'Do you want to update the row [{id}] and the column [{key}] with the value [{value}]?',
         'deleteConfirm': 'Are you sure you want to delete the data with id [{itemsId}]',
