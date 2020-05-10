@@ -96,13 +96,13 @@ export const useUpdateHook = (intl) => {
     const [$$updateItem, setUpdateItem] = useState(Map());
 
     //Interaction status
-    const isEditable = $$updateItem.size > 0 && $$updateItem.get('value') && $$updateItem.get('originalValue') !== $$updateItem.get('value');
+    const isEditable = $$updateItem.size > 0 && $$updateItem.get('value') !== undefined && $$updateItem.get('originalValue') !== $$updateItem.get('value');
 
     const handleInputDoubleClick = (editItemInfo) => {
-        if ($$updateItem.size > 0) {
-            setUpdateItem($$updateItem.merge(Map(editItemInfo)));
-            return;
-        }
+        // if ($$updateItem.size > 0) {
+        //     setUpdateItem($$updateItem.merge(Map(editItemInfo)));
+        //     return;
+        // }
         setUpdateItem($$updateItem.merge(Map(editItemInfo)));
     }
 
@@ -133,6 +133,9 @@ export const useUpdateHook = (intl) => {
     }
 
     const handleSaveUpdate = () => {
+        if (!isEditable) {
+            return;
+        }
         const index = $$updateItem.get('editItemIndex');
         const key = $$updateItem.get('editColumnKey');
         const id = $$updateItem.get('editItemId');
