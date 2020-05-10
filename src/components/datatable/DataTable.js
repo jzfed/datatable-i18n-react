@@ -26,7 +26,6 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
     } = props;
 
     const dispatch = useDispatch();
-    // console.dir($$table);
     const tableData = $$table.toJS();
     const [$$sortData, handleSort] = useSortHook();
     const [
@@ -35,7 +34,7 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
         handleSelect,
         hanldeSelectAll,
         handleDelete
-    ] = useSelectHook(tableData);
+    ] = useSelectHook(tableData, intl);
     const [
         $$updateItem,
         isEditable,
@@ -47,10 +46,12 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
     ] = useUpdateHook(intl);
     const [handleAdd] = useAddHook();
 
-    const gradient = tinygradient('#e2f1ff', '#6fbaff');
-    const sortItemBgColorArr = gradient.rgb(tableData.length).map(tinyColor => tinyColor.toHexString());
-    if ($$sortData.get('sortOrder') === 'desc') sortItemBgColorArr.reverse();
-    // console.log(sortItemBgColorArr);
+    let sortItemBgColorArr = [];
+    if (tableData.length > 1) {
+        const gradient = tinygradient('#e2f1ff', '#6fbaff');
+        sortItemBgColorArr = gradient.rgb(tableData.length).map(tinyColor => tinyColor.toHexString());
+        if ($$sortData.get('sortOrder') === 'desc') sortItemBgColorArr.reverse();
+    }
 
     const thClass = (keyName) => {
         const classList = [];
@@ -58,23 +59,20 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
             classList.push('sort');
             classList.push($$sortData.get('sortOrder'));
         }
-        if (isEditable) classList.push('disabled');
+        if (isEditable || $$selectColumnIds.size > 0) classList.push('disabled');
         return classList.join(' ');
     }
 
     const trClass = (rowItem, rowIndex) => {
         const classList = [];
         if ($$selectColumnIds.has(rowItem.id)) classList.push('selected');
-        // if (isEditable && $$updateItem.get('editItemId') === rowItem.id) classList.push('editable');
-        // if (isEditable && $$updateItem.get('editItemId') === rowItem.id && $$updateItem.get('warning')) classList.push('warning');
         return classList.join(' ');
-        // return $$selectColumnIds.has(rowItem.id) ? 'selected' : '' +  ? ' editable' : '' +  ? ' warning' : '';
     };
 
     const tdClass = (keyName, rowItem) => {
         const classList = [];
         if (keyName === $$sortData.get('sortKey')) classList.push('sort');
-        if (isEditable && $$updateItem.get('editItemId') === rowItem.id && keyName === $$updateItem.get('editColumnKey')) classList.push('editable');
+        if (isEditable && $$updateItem.get('updateItemId') === rowItem.id && keyName === $$updateItem.get('editColumnKey')) classList.push('editable');
         return classList.join(' ');
     };
 
@@ -91,6 +89,14 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
                         {translate('add')}
                     </Button>
                     <Button
+                        disabled={isEditable}
+                        round={true}
+                        type="primary"
+                        onClick={handleSaveUpdate}
+                    >
+                        {translate('edit')}
+                    </Button>
+                    <Button
                         disabled={!isEditable}
                         round={true}
                         type="primary"
@@ -102,6 +108,7 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
                     <Button type="danger"
                         round={true}
                         disabled={$$selectColumnIds.size === 0 || isEditable}
+                        highlight={$$selectColumnIds.size > 0}
                         onClick={handleDelete}
                     >
                         {translate('delete')}
@@ -166,18 +173,18 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
                                                 <td
                                                     key={item[0]}
                                                     className={tdClass(item[0], rowItem)}
-                                                    style={item[0] === $$sortData.get('sortKey') ? { backgroundColor: sortItemBgColorArr[rowIndex] } : {}}
+                                                    style={item[0] === $$sortData.get('sortKey') && sortItemBgColorArr.length > 0 ? { backgroundColor: sortItemBgColorArr[rowIndex] } : {}}
                                                 >
                                                     {
                                                         item[0] === 'id' ? item[1] :
                                                             <Input
                                                                 val={item[1]}
-                                                                isInput={$$updateItem.get('editItemId') === rowItem.id && $$updateItem.get('editColumnKey') === item[0]}
+                                                                isInput={$$updateItem.get('updateItemId') === rowItem.id && $$updateItem.get('editColumnKey') === item[0]}
                                                                 onPlaceholderDoubleClick={
                                                                     handleInputDoubleClick.bind(this,
                                                                         {
-                                                                            editItemId: rowItem.id,
-                                                                            editItemIndex: rowIndex,
+                                                                            updateItemId: rowItem.id,
+                                                                            updateItemIndex: rowIndex,
                                                                             editColumnKey: item[0],
                                                                             originalValue: item[1],
                                                                         },

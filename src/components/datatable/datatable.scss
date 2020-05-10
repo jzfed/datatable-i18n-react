@@ -41,6 +41,7 @@
                     text-align: left;
                     padding: 20px 16px;
                     user-select: none;
+                    transition: background-color ease-in-out 1s;
                     &:hover {
                         cursor: pointer;
                         color: $primaryBlue;
@@ -85,15 +86,15 @@
                 }
 
                 &.selected {
-                    outline: 1px solid change-color($dangerColor, $alpha: 0.5);
-                    background-color: change-color($dangerColor, $alpha: 0.02);
+                    // outline: 1px solid change-color($dangerColor, $alpha: 0.5);
+                    // background-color: change-color($dangerColor, $alpha: 0.02);
+                    animation: bgColorRedHighlight 2s ease-in-out infinite;
                 }
 
                 &.editable{
-                    // outline: 1px solid $primaryBlue;
-                    // animation: borderHighlight 2s ease-in-out infinite;
+
                     &.warning{
-                        animation: borderWarning 2s linear infinite;
+                        
                     }
                 }
 
@@ -101,6 +102,7 @@
                 td {
                     padding: 8px 8px;
                     border-top: 1px solid $lightGray;
+                    transition: background-color ease-in-out 1s;
 
                     &:nth-child(1) {
                         padding: 10px 16px;
@@ -116,7 +118,7 @@
 
                     &.editable{
                         // outline: 1px solid $primaryBlue;
-                        animation: bgColorHighlight 2s ease-in-out infinite;                        
+                        animation: bgColorBlueHighlight 2s ease-in-out infinite;                        
                     }
 
                     &.empty-data {

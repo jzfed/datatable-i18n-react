@@ -1,7 +1,8 @@
 I18N Data Table Project
 ====
 
-- Requirement
+#### Requirement
+---
   - Cell phone column can be edited when double clicked
   - Clicking the column labe would sort the column alphabatically
   - When the selector of the first column and the first row is checked, all rows are selected
@@ -10,7 +11,8 @@ I18N Data Table Project
   - Add will add an empty row to fill in the data except the ID, which will be filled after updating
   - Think of how to localize this
 
-- Todo List
+#### Todo List
+----
   - [x] Find the some UI example.
   - [x] Design infrastructure.
   - [x] Develop base components.
@@ -20,16 +22,19 @@ I18N Data Table Project
   - [x] Code refactoring.
   - [ ] Optimize the logic of adding new data.
 
-- Technology stack
+#### Technology stack
+----
   - React
   - Redux
   - react-redux
   - immutable
   - react-intl
 
-- Preview
+#### Preview
+----
   - [Prview it online.](https://datatable-i18n-2.now.sh/)
 
-- Reference
+#### Reference
+----
   - [formatjs](https://github.com/formatjs/formatjs)
   - [react-intl API](https://formatjs.io/docs/react-intl/components)

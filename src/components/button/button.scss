@@ -28,10 +28,7 @@
     &.round-border{
         border-radius: $borderRadius;
     }
-    &.highlight{
-        border-radius: 0;
-        animation: borderHighlight 2s ease-in-out infinite;
-    }
+
 
     //color
     &.default {
@@ -43,11 +40,19 @@
         color: $white;
         background-color: $primaryBlue;
         border: 1px solid $primaryBlue;
+        &.highlight{
+            border-radius: 0;
+            animation: borderHighlightBlue 2s ease-in-out infinite;
+        }
     }
     &.danger {
         color: $white;
         background-color: $dangerColor;
         border: 1px solid $dangerColor;
+        &.highlight{
+            border-radius: 0;
+            animation: borderHighlightRed 2s ease-in-out infinite;
+        }
     }
     //size
     &.normal {

@@ -26,6 +26,7 @@ export const useSortHook = () => {
         // console.log($$sortData.toJS());
     }
 
+
     useEffect(() => {
         console.log('$$sortData changed.');
         if ($$sortData.get('sortKey') && $$sortData.get('sortOrder') && $$sortData.get('sortType')) {
@@ -44,7 +45,7 @@ export const useSortHook = () => {
 }
 
 //Select hook
-export const useSelectHook = (tableData) => {
+export const useSelectHook = (tableData, intl) => {
     const dispatch = useDispatch();
     const [isSelecteAll, setSelectAll] = useState(false);
     const [$$selectColumnIds, setSelect] = useState(Set());
@@ -74,11 +75,16 @@ export const useSelectHook = (tableData) => {
         console.log($$selectColumnIds.toJS());
     }
 
-    const handleDelete = (e) => {
-        dispatch(del({ ids: $$selectColumnIds.toJS() }));
-        setSelectAll(false);
-        setSelect($$selectColumnIds.clear());
-        console.log($$selectColumnIds.toJS())
+    const handleDelete = () => {
+        const deleteItems = $$selectColumnIds.toJS()
+        let doDelete = window.confirm(intl.formatMessage({ id: 'deleteConfirm' }, { itemsId: deleteItems.join(',') }));
+        if (doDelete) {
+            dispatch(del({ ids: deleteItems }));
+            setSelectAll(false);
+            setSelect($$selectColumnIds.clear());
+            console.log($$selectColumnIds.toJS())
+        }
+
     }
 
     return [
@@ -90,6 +96,12 @@ export const useSelectHook = (tableData) => {
     ];
 }
 
+//Edit hook 
+export const editItem = () => {
+
+}
+
+
 //Update hook 
 export const useUpdateHook = (intl) => {
     const dispatch = useDispatch();
@@ -98,12 +110,12 @@ export const useUpdateHook = (intl) => {
     //Interaction status
     const isEditable = $$updateItem.size > 0 && $$updateItem.get('value') !== undefined && $$updateItem.get('originalValue') !== $$updateItem.get('value');
 
-    const handleInputDoubleClick = (editItemInfo) => {
+    const handleInputDoubleClick = (updateItemInfo) => {
         // if ($$updateItem.size > 0) {
-        //     setUpdateItem($$updateItem.merge(Map(editItemInfo)));
+        //     setUpdateItem($$updateItem.merge(Map(updateItemInfo)));
         //     return;
         // }
-        setUpdateItem($$updateItem.merge(Map(editItemInfo)));
+        setUpdateItem($$updateItem.merge(Map(updateItemInfo)));
     }
 
     const handleInputValueChange = (value) => {
@@ -136,9 +148,9 @@ export const useUpdateHook = (intl) => {
         if (!isEditable) {
             return;
         }
-        const index = $$updateItem.get('editItemIndex');
+        const index = $$updateItem.get('updateItemIndex');
         const key = $$updateItem.get('editColumnKey');
-        const id = $$updateItem.get('editItemId');
+        const id = $$updateItem.get('updateItemId');
         const value = $$updateItem.get('value');;
         let doUpdate = window.confirm(intl.formatMessage({ id: 'updateConfirm' }, { id, key, value }));
         if (doUpdate) {

@@ -1,35 +1,53 @@
-@keyframes borderHighlight{
-    0%{ 
-        outline: 1px solid $primaryBlue;
-        box-shadow: 0 0 0 3px change-color($primaryBlue, $alpha: 0.3);
-    }
-    50%{ 
-        outline: 1px solid transparent;
-        box-shadow: 0 0 0 0px change-color($primaryBlue, $alpha: 0.3);
-    }
-    100%{ 
-        outline: 1px solid $primaryBlue;
-        box-shadow: 0 0 0 3px change-color($primaryBlue, $alpha: 0.3);
-    }
+@mixin borderHighlightGen($name, $color, $lightSize:3px){
+    @keyframes #{$name} {
+        0%{ 
+            outline: 1px solid $color;
+            box-shadow: 0 0 0 $lightSize change-color($color, $alpha: 0.3);
+        }
+        50%{ 
+            outline: 1px solid transparent;
+            box-shadow: 0 0 0 0px change-color($color, $alpha: 0.3);
+        }
+        100%{ 
+            outline: 1px solid $color;
+            box-shadow: 0 0 0 $lightSize change-color($color, $alpha: 0.3);
+        }
+      }   
 }
 
-@keyframes bgColorHighlight{
-    0%{ 
-        background-color: change-color($primaryBlue, $alpha: 0.3);
-    }
-    50%{ 
-        background-color: change-color($primaryBlue, $alpha: 0);
-    }
-    100%{ 
-        background-color: change-color($primaryBlue, $alpha: 0.3);
-    }
+@mixin borderBlinkGen($name, $color, $borderSize:1px){
+    @keyframes #{$name}{
+        0% {
+            outline: $borderSize solid $color;
+        }
+        50% {
+            outline: $borderSize solid transparent;
+        }
+        100% {
+            outline: $borderSize solid $color;
+        }
+    }  
 }
 
-
-@keyframes borderWarning{
-    0% {outline-color: $primaryBlue;}
-    25% {outline-color: $dangerColor;}
-    50% {outline-color: $primaryBlue;}
-    75% {outline-color: $dangerColor;}
-    100% {outline-color: $primaryBlue;}
+@mixin bgColorBlinkGen($name, $color){
+    @keyframes #{$name}{
+        0%{ 
+            background-color: change-color($color, $alpha: 0.3);
+        }
+        50%{ 
+            background-color: change-color($color, $alpha: 0);
+        }
+        100%{ 
+            background-color: change-color($color, $alpha: 0.3);
+        }
+    }  
 }
+
+@include borderHighlightGen(borderHighlightBlue, $primaryBlue, 5px);
+@include borderHighlightGen(borderHighlightRed, $dangerColor, 5px);
+
+@include borderBlinkGen(borderBlinkBlue, $primaryBlue);
+@include borderBlinkGen(borderBlinkRed, $dangerColor);
+
+@include bgColorBlinkGen(bgColorBlueHighlight, $primaryBlue);
+@include bgColorBlinkGen(bgColorRedHighlight, $dangerColor);
