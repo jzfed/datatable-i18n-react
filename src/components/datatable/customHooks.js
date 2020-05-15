@@ -53,12 +53,12 @@ export const useSelectHook = (tableData, intl) => {
         const checkbox = e.currentTarget;
         // console.dir(checkbox);
         const id = parseInt(checkbox.id);
+
         if ($$selectColumnIds.has(id)) {
             setSelect($$selectColumnIds.delete(id));
         } else {
             setSelect($$selectColumnIds.add(id));
         }
-
     }
 
     const hanldeSelectAll = (e) => {

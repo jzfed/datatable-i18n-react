@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import './datatable.scss';
 import { Button } from '../button';
@@ -25,6 +25,7 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
         locale,
     } = props;
 
+    const thCheckboxRef = useRef();
     const dispatch = useDispatch();
     const tableData = $$table.toJS();
     const [$$sortData, handleSort] = useSortHook();
@@ -33,7 +34,7 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
         $$selectColumnIds,
         handleSelect,
         hanldeSelectAll,
-        handleDelete
+        handleDelete,
     ] = useSelectHook(tableData, intl);
 
     // const [
@@ -87,6 +88,10 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
         // if ($$editItem.get('editItemId') === rowItem.id && keyName === $$editItem.get('editColumnKey')) classList.push('selected');
         return classList.join(' ');
     };
+
+    useEffect(() => {
+        thCheckboxRef.current.indeterminate = $$selectColumnIds.size > 0 && $$selectColumnIds.size < tableData.length;
+    }, [$$selectColumnIds, tableData])
 
     return (
         <div className="table-wrapper" >
@@ -149,7 +154,7 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
                 <thead>
                     <tr>
                         {
-                            checkbox && <th width="2%"><input type="checkbox" disabled={isEditable} checked={isSelecteAll} readOnly onChange={hanldeSelectAll} /></th>
+                            checkbox && <th width="2%"><input type="checkbox" ref={thCheckboxRef} disabled={isEditable} checked={isSelecteAll} readOnly onChange={hanldeSelectAll} /></th>
                         }
                         {
                             indexNames && Object.entries(indexNames).map((item, index) =>
