@@ -15,26 +15,25 @@ export const useSortHook = () => {
         const sortObj = {
             sortType,
             sortKey,
+            sortKeyPrev: sortKey
         };
-        $$sortData.get('sortOrder')
+        $$sortData.get('sortKeyPrev') === sortKey
             ? $$sortData.get('sortOrder') === 'asc'
                 ? sortObj.sortOrder = 'desc'
                 : sortObj.sortOrder = 'asc'
-            : sortObj.sortOrder = 'asc'
-        // console.log(sortObj);
-        setSort($$sortData.concat(Map(sortObj)));
+            : sortObj.sortOrder = 'asc';
+
+        setSort(Map(sortObj));
         // console.log($$sortData.toJS());
     }
 
 
     useEffect(() => {
-        console.log('$$sortData changed.');
+        // console.log('$$sortData changed.');
         if ($$sortData.get('sortKey') && $$sortData.get('sortOrder') && $$sortData.get('sortType')) {
             stableDispatch(sort($$sortData.toObject()));
         }
-        console.log('sortKey', $$sortData.get('sortKey'));
-        console.log('sortOrder', $$sortData.get('sortOrder'));
-        console.log('sortType', $$sortData.get('sortType'));
+        console.log('$$sortData', $$sortData.toJS());
 
     }, [$$sortData, stableDispatch]);
 
@@ -107,7 +106,7 @@ export const useUpdateHook = (intl) => {
     const isEditable = $$updateItem.size > 0 && $$updateItem.get('value') !== undefined && $$updateItem.get('originalValue') !== $$updateItem.get('value');
 
     const handlePlaceholderClick = (editItemInfo) => {
-        setEditItem($$editItem.merge(Map(editItemInfo)));
+        setEditItem(Map(editItemInfo));
     }
 
     const handlePlaceHolderBlur = () => {
@@ -122,7 +121,7 @@ export const useUpdateHook = (intl) => {
     }
 
     const handleEditClick = () => {
-        setUpdateItem($$updateItem.merge(Map($$editItem.toJS())));
+        setUpdateItem(Map($$editItem.toJS()));
         clearEditItems();
     }
 
@@ -131,7 +130,7 @@ export const useUpdateHook = (intl) => {
         //     setUpdateItem($$updateItem.merge(Map(updateItemInfo)));
         //     return;
         // }
-        setUpdateItem($$updateItem.merge(Map(updateItemInfo)));
+        setUpdateItem(Map(updateItemInfo));
         clearEditItems();
     }
 
