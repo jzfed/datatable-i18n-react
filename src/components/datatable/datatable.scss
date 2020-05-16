@@ -1,137 +1,147 @@
 @import '../../common/scss/common.scss';
 
 .#{$prefix}table-wrapper {
-    color: $darkGray;
-    font-size: $normalFontsize;
-    margin:10px;
-    
+	color: $darkGray;
+	font-size: $normalFontsize;
+	margin: 10px;
 
-    .table-toolbar {
-        display: flex;
-        padding: 10px 10px;
-        justify-content: space-between;
-        margin-bottom: 15px;
-        border: 1px solid $white;
-        background-color: $white;
-        box-shadow: 0 0 4px $borderGray;
-        .table-action{
-            button {
-                margin-right: 8px;
-            }
-        }
+	.table-toolbar {
+		display: flex;
+		padding: 10px 10px;
+		justify-content: space-between;
+		margin-bottom: 15px;
+		border: 1px solid $white;
+		background-color: $white;
+		box-shadow: 0 0 4px $borderGray;
+		.table-action {
+			button {
+				margin-right: 8px;
+			}
+		}
 
-        .language-switcher{
+		.language-switcher {
+		}
+	}
 
-        }
-    }
+	table {
+		border-collapse: collapse;
+		width: 100%;
+		border: 1px solid $white;
+		background-color: $white;
+		box-shadow: 0 0 4px $borderGray;
+		thead {
+			// background: linear-gradient(0deg,$lightGray 0%, $bgGray 100%);
+			width: 100%;
+			display: block;
+			tr {
+				th {
+					border-bottom: 1px solid $borderGray;
+					text-align: left;
+					padding: 20px 16px;
+					user-select: none;
+					transition: background-color ease-in-out 1s;
+					&:hover {
+						cursor: pointer;
+						color: $primaryBlue;
+					}
 
-    table {
-        border-collapse: collapse;
-        width: 100%;
-        border: 1px solid $white;
-        background-color: $white;
-        box-shadow: 0 0 4px $borderGray;
-        thead {
-            // background: linear-gradient(0deg,$lightGray 0%, $bgGray 100%);
-            
-            tr {
-                
-                th {
-                    border-bottom: 1px solid $borderGray;
-                    text-align: left;
-                    padding: 20px 16px;
-                    user-select: none;
-                    transition: background-color ease-in-out 1s;
-                    &:hover {
-                        cursor: pointer;
-                        color: $primaryBlue;
-                    }
+					&.disabled {
+						color: $borderGray;
+						cursor: not-allowed;
+					}
 
-                    &.disabled{
-                        color: $borderGray;
-                        cursor: not-allowed;
-                    }
+					&.sort {
+						color: $primaryBlue;
+						// background-color: change-color(
+						// 	$primaryBlue,
+						// 	$alpha: 0.1
+						// );
+						border-top: 1px solid $white;
+						.icon {
+							transition: transform ease-in-out 0.5s;
+							margin-left: 3px;
+						}
 
-                    &.sort {
-                        color: $primaryBlue;
-                        background-color: change-color($primaryBlue, $alpha: 0.1);
-                        border-top: 1px solid $white;
-                        .icon {
-                            transition: transform ease-in-out .5s;
-                            margin-left: 3px;
-                        }
+						&.asc {
+						}
 
-                        &.asc {}
+						&.desc {
+							.icon {
+								transform: rotate(-180deg);
+							}
+						}
+					}
 
-                        &.desc {
-                            .icon {
-                                transform: rotate(-180deg);
-                            }
-                        }
-                    }
-                }
-            }
-        }
+					&:last-child {
+						padding: 0;
+					}
+				}
+			}
+		}
 
-        tbody {
-            tr {
-                transition: background-color ease-in-out .5s, outline ease-in-out .3s;;
+		tbody {
+			display: block;
+			overflow-y: auto;
+			width: 100%;
 
-                &:hover {
-                    background-color: change-color($primaryBlue, $alpha: 0.1);
-                }
+			tr {
+				transition: background-color ease-in-out 0.5s,
+					outline ease-in-out 0.3s;
+				&:hover {
+					background-color: change-color($primaryBlue, $alpha: 0.1);
+				}
 
-                &.selected {
-                    // outline: 1px solid change-color($dangerColor, $alpha: 0.5);
-                    // background-color: change-color($dangerColor, $alpha: 0.02);
-                    animation: bgColorRedHighlight $animationNormalDuration ease-in-out infinite;
-                }
+				&.selected {
+					// outline: 1px solid change-color($dangerColor, $alpha: 0.5);
+					// background-color: change-color($dangerColor, $alpha: 0.02);
+					animation: bgColorRedHighlight $animationNormalDuration
+						ease-in-out infinite;
+				}
 
-                &.editable{
+				&.editable {
+				}
 
-                }
+				td {
+					padding: 8px 8px;
+					border-top: 1px solid $lightGray;
+					transition: background-color ease-in-out 1s;
 
+					&:nth-child(1) {
+						padding: 10px 16px;
+					}
 
-                td {
-                    padding: 8px 8px;
-                    border-top: 1px solid $lightGray;
-                    transition: background-color ease-in-out 1s;
+					&:nth-child(2) {
+						padding: 10px 16px;
+					}
 
-                    &:nth-child(1) {
-                        padding: 10px 16px;
-                    }
+					&.sort {
+						background-color: change-color(
+							$primaryBlue,
+							$alpha: 0.1
+						);
+					}
 
-                    &:nth-child(2) {
-                        padding: 10px 16px;
-                    }
+					&.editable {
+						// outline: 1px solid $primaryBlue;
+						animation: bgColorBlueHighlight $animationNormalDuration
+							ease-in-out infinite;
+					}
 
-                    &.sort {
-                        background-color: change-color($primaryBlue, $alpha: 0.1);
-                    }
-
-                    &.editable{
-                        // outline: 1px solid $primaryBlue;
-                        animation: bgColorBlueHighlight $animationNormalDuration ease-in-out infinite;                        
-                    }
-
-
-
-                    &.empty-data {
-                        text-align: center;
-                        height: 150px;
-                    }
-                }
-            }
-        }
-        &.striped{
-            tbody {
-                tr {
-                    &:nth-child(odd){
-                        background-color: $bgGray;
-                    }
-                }
-            }
-        }
-    }
+					&.empty-data {
+						text-align: center;
+						height: 500px;
+					}
+				}
+			}
+		}
+		&.striped {
+			tbody {
+				tr {
+					&:nth-child(odd) {
+						background-color: $bgGray;
+					}
+				}
+			}
+		}
+	}
 }
-
