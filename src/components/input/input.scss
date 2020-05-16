@@ -1,6 +1,6 @@
 @import '../../common/scss/common.scss';
 
-.input-wrapper {
+.#{$prefix}input-wrapper {
     color: $darkGray;
 
     input {

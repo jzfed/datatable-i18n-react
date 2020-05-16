@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { CLASS_PREFIX } from '../../common/js/constant';
 import './input.scss';
 
 export const Input = React.memo((props) => {
@@ -68,7 +69,7 @@ export const Input = React.memo((props) => {
     }, [isInput, val])
 
     return (
-        <div className="input-wrapper">
+        <div className={`${CLASS_PREFIX}input-wrapper`}>
             {isInput
                 ? <input ref={inputEl} type="text" value={inputValue} onFocus={handleInputFocus} onChange={handleChange} onKeyDown={handleEnterPress} onBlur={handleInputBlur} className={inputClass} />
                 : <div

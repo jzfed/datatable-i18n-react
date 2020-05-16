@@ -1,6 +1,6 @@
 @import '../../common/scss/common.scss';
 
-.table-wrapper {
+.#{$prefix}table-wrapper {
     color: $darkGray;
     font-size: $normalFontsize;
     margin:10px;

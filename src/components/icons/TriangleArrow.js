@@ -7,4 +7,4 @@ export const TriangleArrow = React.memo((props) => {
             <polygon points="8,4 16,12 0,12" />
         </svg>
     )
-})
+});

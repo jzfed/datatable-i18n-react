@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.scss';
 
 import { store } from './store';
@@ -9,6 +9,9 @@ import { AddressBook } from './pages/AddressBook';
 import { I18nProvider, LOCALES } from './i18n';
 
 function App() {
+    useEffect(() => {
+        document.querySelector('.jui-dual-ring-loading').style.display = 'none';
+    }, []);
     return (
         <Provider store={store}>
             <I18nProvider locale={LOCALES.ENGLISH}>

@@ -20,8 +20,10 @@ I18N Data Table Project
   - [x] Implement the i18n support.
   - [x] Optimize the logic of data update.
   - [x] Code refactoring.
-  - [ ] Add intermediate checkbox state.
-  - [ ] Optimize the logic of sort data.
+  - [x] Add intermediate checkbox state.
+  - [x] Optimize the logic of sort data.
+  - [x] Code splitting to improve the first print time performance.
+  - [x] Remove source map in production mode.
   - [ ] Refactor the selector code.
   - [ ] Optimize the logic of adding new data.
   - [ ] Add a dialog component for adding data logic.

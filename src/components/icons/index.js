@@ -1,3 +1,4 @@
 import { TriangleArrow } from './TriangleArrow';
+import { Bars } from './Bars';
 
-export { TriangleArrow };
+export { TriangleArrow, Bars };

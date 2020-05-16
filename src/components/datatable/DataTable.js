@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
+import { CLASS_PREFIX } from '../../common/js/constant';
 import './datatable.scss';
 import { Button } from '../button';
 import { Input } from '../input';
@@ -94,7 +95,7 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
     }, [$$selectColumnIds, tableData])
 
     return (
-        <div className="table-wrapper" >
+        <div className={`${CLASS_PREFIX}table-wrapper`}>
             <div className="table-toolbar">
                 <div className="table-action">
                     <Button
