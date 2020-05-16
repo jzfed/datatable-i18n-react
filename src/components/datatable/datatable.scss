@@ -77,10 +77,6 @@
             tr {
                 transition: background-color ease-in-out .5s, outline ease-in-out .3s;;
 
-                &:nth-child(odd){
-                    background-color: $bgGray;
-                }                
-
                 &:hover {
                     background-color: change-color($primaryBlue, $alpha: 0.1);
                 }
@@ -123,6 +119,15 @@
                     &.empty-data {
                         text-align: center;
                         height: 150px;
+                    }
+                }
+            }
+        }
+        &.striped{
+            tbody {
+                tr {
+                    &:nth-child(odd){
+                        background-color: $bgGray;
                     }
                 }
             }

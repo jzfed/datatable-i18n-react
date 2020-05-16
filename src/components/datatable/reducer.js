@@ -1,7 +1,7 @@
 import { data } from '../../data';
 import * as actionTypes from './actionType';
 import { fromJS } from 'immutable';
-import { dataIndex } from '../../dataIndex';
+import { dataIndex } from '../../data/dataIndex';
 import { sortSelector } from './selector';
 
 const $$data = fromJS(data);

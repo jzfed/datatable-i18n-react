@@ -20,7 +20,7 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
     const {
         $$table,
         checkbox,
-        indexNames,
+        striped,
         fixColumnWidth,
         intl,
         locale,
@@ -62,7 +62,7 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
     let sortItemBgColorArr = [];
     if (tableData.length > 1) {
         const gradient = tinygradient('#e2f1ff', '#6fbaff');
-        sortItemBgColorArr = gradient.rgb(tableData.length).map(tinyColor => tinyColor.toHexString());
+        sortItemBgColorArr = gradient.rgb(tableData.length).map(tinyColor => tinyColor.setAlpha(0.75).toRgbString());
         if ($$sortData.get('sortOrder') === 'desc') sortItemBgColorArr.reverse();
     }
 
@@ -89,6 +89,8 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
         // if ($$editItem.get('editItemId') === rowItem.id && keyName === $$editItem.get('editColumnKey')) classList.push('selected');
         return classList.join(' ');
     };
+
+    const indexNames = tableData.length > 0 && Object.keys(tableData[0]);
 
     useEffect(() => {
         thCheckboxRef.current.indeterminate = $$selectColumnIds.size > 0 && $$selectColumnIds.size < tableData.length;
@@ -151,25 +153,25 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
                 </Button>
                 </div>
             </div>
-            <table>
+            <table className={striped ? 'striped' : ''}>
                 <thead>
                     <tr>
                         {
                             checkbox && <th width="2%"><input type="checkbox" ref={thCheckboxRef} disabled={isEditable} checked={isSelecteAll} readOnly onChange={hanldeSelectAll} /></th>
                         }
                         {
-                            indexNames && Object.entries(indexNames).map((item, index) =>
+                            indexNames && indexNames.map((indexKey, index) =>
                                 <th
                                     width={fixColumnWidth[index] ? fixColumnWidth[index] : 'auto'}
-                                    key={item[0]}
-                                    className={thClass(item[0])}
+                                    key={indexKey}
+                                    className={thClass(indexKey)}
                                     onClick={handleSort.bind(this, {
-                                        sortType: (item[0] === 'id' ? 'number' : 'string'),
-                                        sortKey: item[0],
+                                        sortType: (indexKey === 'id' ? 'number' : 'string'),
+                                        sortKey: indexKey,
                                     })}
                                 >
-                                    {translate(item[0])}
-                                    {item[0] === $$sortData.get('sortKey') ? <TriangleArrow size={12} /> : ''}
+                                    {translate(indexKey)}
+                                    {indexKey === $$sortData.get('sortKey') ? <TriangleArrow size={12} /> : ''}
                                 </th>
                             )
                         }
