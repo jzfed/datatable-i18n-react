@@ -45,6 +45,12 @@
 -   immutable
 -   react-intl
 
+#### Interaction Logic
+
+---
+
+![AddressBookUpdateInteraction](https://raw.githubusercontent.com/jzfed/datatable-i18n/master/docs/AddressBookUpdateInteraction.png)
+
 #### Preview
 
 ---
