@@ -1,4 +1,4 @@
-# I18N Data Table Project
+# I18N Data Table Project(React version)
 
 #### Requirement
 
