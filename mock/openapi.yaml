@@ -3,28 +3,30 @@ info:
   title: Mock data for datatable component.
   description: Mock data for datatable component.
   contact:
-    email: jasonzhangod@gmail.com
     name: Jason Zhang
+    email: jasonzhangod@gmail.com
   license:
     name: Apache 2.0
-    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
-  version: "1.0.1"
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.1
 servers:
-  - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/jzfed4/datatable-mock/1.0.0
+- url: https://virtserver.swaggerhub.com/jzfed4/datatable-mock/1.0.1
+  description: SwaggerHub API Auto Mocking
 tags:
-  - name: address
-    description: User address book
+- name: address
+  description: User address book
 paths:
   /address:
     summary: Get users address book information.
     description: Get users address book information.
     get:
+      tags:
+      - address
       summary: Ger uses address data.
       description: Ger uses address data.
       operationId: get-address
       responses:
-        '200':
+        "200":
           description: Default error sample response
           content:
             application/json:
@@ -33,7 +35,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/AddressItem'
               examples:
-               address:
+                address:
                   value: |-
                     [
                       {
@@ -147,15 +149,42 @@ paths:
                         "office": "C-306",
                         "officePhone": "x55778",
                         "cellPhone": "220-353-1239"
+                      },
+                      {
+                        "id": 15,
+                        "name": "Cindy Xue",
+                        "location": "Shanghai",
+                        "office": "C-306",
+                        "officePhone": "x45778",
+                        "cellPhone": "450-353-1239"
+                      },
+                      {
+                        "id": 16,
+                        "name": "Vicky Cai",
+                        "location": "Shanghai",
+                        "office": "C-206",
+                        "officePhone": "x55778",
+                        "cellPhone": "440-455-1239"
+                      },
+                      {
+                        "id": 17,
+                        "name": "Jay Chou",
+                        "location": "Shenzhen",
+                        "office": "C-506",
+                        "officePhone": "x85778",
+                        "cellPhone": "750-353-1239"
+                      },
+                      {
+                        "id": 18,
+                        "name": "Jacky Cheng",
+                        "location": "Guangzhou",
+                        "office": "C-306",
+                        "officePhone": "x55778",
+                        "cellPhone": "220-353-1239"
                       }
                     ]
-                    
-        '400':
+        "400":
           description: bad input parameter
-        '404':
-          description: bad input parameter
-      tags:
-        - address
 components:
   schemas:
     AddressItem:

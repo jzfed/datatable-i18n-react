@@ -28,8 +28,10 @@
     &.round-border{
         border-radius: $borderRadius;
     }
-
-
+    &.loading{
+        cursor: not-allowed;
+    }
+    
     //color
     &.default {
         color: $darkGray;

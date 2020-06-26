@@ -1,22 +1,53 @@
 import * as actionTypes from './actionType';
-
+import { API } from "../../common/js/constant";
 
 export const fetchDataStarted = () => ({ type: actionTypes.DATATABLE_FETCH_STARTED });
 export const fetchDataSuccess = (result) => ({ type: actionTypes.DATATABLE_FETCH_SUCCESS, result });
 export const fetchDataFailure = (error) => ({ type: actionTypes.DATATABLE_FETCH_ERROR, error });
+export const fetchDataFinish = () => ({ type: actionTypes.DATATABLE_FETCH_FINISH });
 export const fetchData = () => {
+    return fetchWhtiAction(API.address.get);
+}
+export const fetchWhtiAction = (url, method='GET', callback) => {
     return (dispatch, getState) => {
         dispatch(fetchDataStarted());
-        return fetch('https://virtserver.swaggerhub.com/jzfed4/datatable-mock/1.0.1/address').then(
+        return fetch(url, {
+            method: method
+        }).then(
             response => response.json()
         ).then(
-            data => dispatch(fetchDataSuccess(data))
+            data => {
+                if(typeof callback === 'function'){
+                    dispatch(callback(data));
+                    dispatch(fetchDataFinish());
+                }else{
+                    dispatch(fetchDataSuccess(data));
+                }
+            }
         ).catch(
             err => dispatch(fetchDataFailure(err))
         );
     }
-
 }
+
+export const deleteUser = ({ids}) => {
+    return fetchWhtiAction(API.address.delete + parseInt(ids), 'DELETE', () => {
+        return del({ids});
+    });
+}
+
+export const addUser = () => {
+    return fetchWhtiAction(API.address.add, 'POST', () => {
+        return add();
+    });
+}
+
+export const updateUser = ({ index, key, value }) => {
+    return fetchWhtiAction(API.address.update + index, 'PUT', () => {
+        return update({ index, key, value });
+    });    
+}
+
 export const add = () => { //{ name, location, office, officePhone, cellPhone }
     return {
         type: actionTypes.DATATABLE_ADD,

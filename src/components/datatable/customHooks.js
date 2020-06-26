@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { add, update, del, sort } from './action';
+import { updateUser, addUser, sort, deleteUser } from './action';
 import { Set, Map } from 'immutable';
 
 //Sort hook
@@ -80,7 +80,7 @@ export const useSelectHook = (tableData, intl) => {
 			)
 		);
 		if (doDelete) {
-			dispatch(del({ ids: deleteItems }));
+			dispatch(deleteUser({ ids: deleteItems }));
 			setSelectAll(false);
 			setSelect($$selectColumnIds.clear());
 			console.log($$selectColumnIds.toJS());
@@ -175,7 +175,7 @@ export const useUpdateHook = (intl) => {
 		);
 		if (doUpdate) {
 			dispatch(
-				update({
+				updateUser({
 					index,
 					key,
 					id,
@@ -222,7 +222,7 @@ export const useAddHook = () => {
 	const [newId, setNewId] = useState(15);
 	const dispatch = useDispatch();
 	const handleAdd = () => {
-		dispatch(add());
+		dispatch(addUser());
 	};
 	return [newId, setNewId, handleAdd];
 };

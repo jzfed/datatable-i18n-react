@@ -8,6 +8,7 @@ export const Button = React.memo((props) => {
         size,
         highlight,
         round,
+        loading,
         ...restProps
     } = props;
 
@@ -17,6 +18,7 @@ export const Button = React.memo((props) => {
     size ? classList.push(size) : classList.push('normal');
     highlight && classList.push('highlight');
     round && classList.push('round-border');
+    loading && classList.push('loading');
     const mergeClass = classList.join(' ');
     return (
         <button className={mergeClass} {...restProps}>

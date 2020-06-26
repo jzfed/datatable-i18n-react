@@ -16,7 +16,10 @@ export const reducer = (state = fromJS({$$data: [], isLoading: false}), action) 
             return state.setIn(['isLoading'], true);
 
         case actionTypes.DATATABLE_FETCH_ERROR: 
-        return state.setIn(['isLoading'], false);
+            return state.setIn(['isLoading'], false);
+
+        case actionTypes.DATATABLE_FETCH_FINISH:
+            return state.setIn(['isLoading'], false);
 
         case actionTypes.DATATABLE_FETCH_SUCCESS:
             return state.setIn(['isLoading'], false).updateIn(['$$data'], list => list.concat(action.result));
