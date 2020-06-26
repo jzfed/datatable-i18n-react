@@ -67,7 +67,8 @@ export const reducer = (state = fromJS({$$data: [], isLoading: false}), action) 
             Object.entries(dataIndex).forEach(([key, val]) => {
                 newItem[key] = val.toLowerCase();
             });
-            newItem['id'] = state.get('$$data').maxBy(item => item.id)['id'] + 1;
+            const itemIndex = state.get('$$data').size > 0 ? state.get('$$data').maxBy(item => item.id)['id'] : 0;
+            newItem['id'] = itemIndex  + 1;
             return state.updateIn(['$$data'], list =>  list.concat([newItem]));;
 
         default:

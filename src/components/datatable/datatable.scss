@@ -49,7 +49,7 @@
 		border: 1px solid $white;
 		background-color: $white;
 		box-shadow: 0 0 4px $borderGray;
-		min-height: 600px;
+		min-height: 700px;
 		thead {
 			// background: linear-gradient(0deg,$lightGray 0%, $bgGray 100%);
 			width: 100%;
@@ -150,7 +150,7 @@
 
 					&.empty-data {
 						text-align: center;
-						
+						height: 650px;
 					}
 				}
 			}
