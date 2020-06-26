@@ -1,31 +1,42 @@
-import { data } from '../../data';
+// import { data } from '../../data';
 import * as actionTypes from './actionType';
-import { fromJS } from 'immutable';
+import { fromJS, Map } from 'immutable';
 import { dataIndex } from '../../data/dataIndex';
 import { sortSelector } from './selector';
 
-const $$data = fromJS(data);
+// const $$data = fromJS(data);
 
-let itemId = $$data.size;
+// let itemId = 0;
 
-export const reducer = (state = $$data, action) => {
+export const reducer = (state = fromJS({$$data: [], isLoading: false}), action) => {
+
     switch (action.type) {
+        
+        case actionTypes.DATATABLE_FETCH_STARTED: 
+            return state.setIn(['isLoading'], true);
+
+        case actionTypes.DATATABLE_FETCH_ERROR: 
+        return state.setIn(['isLoading'], false);
+
+        case actionTypes.DATATABLE_FETCH_SUCCESS:
+            return state.setIn(['isLoading'], false).updateIn(['$$data'], list => list.concat(action.result));
+
         case actionTypes.DATATABLE_UPDATE:
             const {
                 index,
                 key,
                 value,
             } = action.payload;
-            return state.setIn([index, key], value);
+            return state.setIn(['$$data', index, key], value);
 
         case actionTypes.DATATABLE_DELETE:
             const {
                 ids
             } = action.payload;
-            return state.filter(item => {
-                const result = !ids.includes(item.get('id'));
+            return state.updateIn(['$$data'], list => list.filter(item => {
+                const result = !ids.includes(item['id']);
                 return result;
-            });
+            })); 
 
         case actionTypes.DATATABLE_SORT:
             // const {
@@ -34,7 +45,7 @@ export const reducer = (state = $$data, action) => {
             //     sortType,
             // } = action.payload;
 
-            // const sortResult = state.sort((a, b) => {
+            // const sortResult = $$data.sort((a, b) => {
             //     switch (sortType) {
             //         case 'number':
             //             return sortOrder === 'asc' ? a.get(sortKey) - b.get(sortKey) : b.get(sortKey) - a.get(sortKey); //Number
@@ -53,8 +64,8 @@ export const reducer = (state = $$data, action) => {
             Object.entries(dataIndex).forEach(([key, val]) => {
                 newItem[key] = val.toLowerCase();
             });
-            newItem['id'] = ++itemId;
-            return state.push(fromJS(newItem));
+            newItem['id'] = state.get('$$data').maxBy(item => item.id)['id'] + 1;
+            return state.updateIn(['$$data'], list =>  list.concat([newItem]));;
 
         default:
             return state;

@@ -1,0 +1,176 @@
+openapi: 3.0.0
+info:
+  title: Mock data for datatable component.
+  description: Mock data for datatable component.
+  contact:
+    email: jasonzhangod@gmail.com
+    name: Jason Zhang
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  version: "1.0.1"
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/jzfed4/datatable-mock/1.0.0
+tags:
+  - name: address
+    description: User address book
+paths:
+  /address:
+    summary: Get users address book information.
+    description: Get users address book information.
+    get:
+      summary: Ger uses address data.
+      description: Ger uses address data.
+      operationId: get-address
+      responses:
+        '200':
+          description: Default error sample response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AddressItem'
+              examples:
+               address:
+                  value: |-
+                    [
+                      {
+                        "id": 1,
+                        "name": "Khali Zhang",
+                        "location": "Shanghai",
+                        "office": "C-103",
+                        "officePhone": "x55778",
+                        "cellPhone": "650-353-1239"
+                      },
+                      {
+                        "id": 2,
+                        "name": "Kathy Chang",
+                        "location": "Beijing",
+                        "office": "C-101",
+                        "officePhone": "z55778",
+                        "cellPhone": "750-353-1239"
+                      },
+                      {
+                        "id": 3,
+                        "name": "Andy Lao",
+                        "location": "Shenzhen",
+                        "office": "C-104",
+                        "officePhone": "d55778",
+                        "cellPhone": "350-353-1239"
+                      },
+                      {
+                        "id": 4,
+                        "name": "Jason Zhang",
+                        "location": "Shanghai",
+                        "office": "C-106",
+                        "officePhone": "x55778",
+                        "cellPhone": "550-353-1239"
+                      },
+                      {
+                        "id": 5,
+                        "name": "Sarah Lee",
+                        "location": "Shanghai",
+                        "office": "C-306",
+                        "officePhone": "x45778",
+                        "cellPhone": "450-353-1239"
+                      },
+                      {
+                        "id": 6,
+                        "name": "William Wang",
+                        "location": "Shanghai",
+                        "office": "C-206",
+                        "officePhone": "x55778",
+                        "cellPhone": "440-455-1239"
+                      },
+                      {
+                        "id": 7,
+                        "name": "Josephine Qiu",
+                        "location": "Shenzhen",
+                        "office": "C-506",
+                        "officePhone": "x85778",
+                        "cellPhone": "750-353-1239"
+                      },
+                      {
+                        "id": 8,
+                        "name": "Caroline Liu",
+                        "location": "Guangzhou",
+                        "office": "C-306",
+                        "officePhone": "x55778",
+                        "cellPhone": "220-353-1239"
+                      },
+                      {
+                        "id": 9,
+                        "name": "Paul Wang",
+                        "location": "Beijing",
+                        "office": "A-106",
+                        "officePhone": "x77778",
+                        "cellPhone": "660-353-1239"
+                      },
+                      {
+                        "id": 10,
+                        "name": "Herry Chen",
+                        "location": "Shanghai",
+                        "office": "C-106",
+                        "officePhone": "x55778",
+                        "cellPhone": "550-353-1239"
+                      },
+                      {
+                        "id": 11,
+                        "name": "Cindy Xue",
+                        "location": "Shanghai",
+                        "office": "C-306",
+                        "officePhone": "x45778",
+                        "cellPhone": "450-353-1239"
+                      },
+                      {
+                        "id": 12,
+                        "name": "Vicky Cai",
+                        "location": "Shanghai",
+                        "office": "C-206",
+                        "officePhone": "x55778",
+                        "cellPhone": "440-455-1239"
+                      },
+                      {
+                        "id": 13,
+                        "name": "Jay Chou",
+                        "location": "Shenzhen",
+                        "office": "C-506",
+                        "officePhone": "x85778",
+                        "cellPhone": "750-353-1239"
+                      },
+                      {
+                        "id": 14,
+                        "name": "Jacky Cheng",
+                        "location": "Guangzhou",
+                        "office": "C-306",
+                        "officePhone": "x55778",
+                        "cellPhone": "220-353-1239"
+                      }
+                    ]
+                    
+        '400':
+          description: bad input parameter
+        '404':
+          description: bad input parameter
+      tags:
+        - address
+components:
+  schemas:
+    AddressItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        location:
+          type: string
+        office:
+          type: string
+        officePhone:
+          type: string
+        cellPhone:
+          type: string

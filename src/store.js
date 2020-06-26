@@ -1,8 +1,9 @@
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import { reducer as tableReducer } from './components/datatable/reducer';
 import { reducer as i18nReducer } from './i18n';
+import thunk from 'redux-thunk';
 
-const middlewares = [];
+const middlewares = [thunk];
 
 const win = window;
 

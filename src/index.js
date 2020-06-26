@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom';
 import 'normalize.css';
 import * as serviceWorker from './serviceWorker';
-// import { LoadingBar } from './components/loading/LoadingBar';
+
 
 const App = lazy(() => import('./App'));
 

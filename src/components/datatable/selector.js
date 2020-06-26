@@ -8,15 +8,15 @@ const getTableData = (state, action) => state;
 export const sortSelector = createSelector(
     [getSortKey, getSortOrder, getSortType, getTableData],
     (sortKey, sortOrder, sortType, state) => {
-        return state.sort((a, b) => {
+        return state.updateIn(['$$data'], list => list.sort((a, b) => {
             switch (sortType) {
                 case 'number':
-                    return sortOrder === 'asc' ? a.get(sortKey) - b.get(sortKey) : b.get(sortKey) - a.get(sortKey); //Number
+                    return sortOrder === 'asc' ? a[sortKey] - b[sortKey] : b[sortKey] - a[sortKey]; //Number
                 case 'string':
-                    return sortOrder === 'asc' ? a.get(sortKey).toString().localeCompare(b.get(sortKey)) : b.get(sortKey).toString().localeCompare(a.get(sortKey)); //String
+                    return sortOrder === 'asc' ? a[sortKey].toString().localeCompare(b[sortKey]) : b[sortKey].toString().localeCompare(a[sortKey]); //String
                 default:
-                    return sortOrder === 'asc' ? a.get(sortKey).toString().localeCompare(b.get(sortKey)) : b.get(sortKey).toString().localeCompare(a.get(sortKey)); //String
+                    return sortOrder === 'asc' ? a[sortKey].toString().localeCompare(b[sortKey]) : b[sortKey].toString().localeCompare(a[sortKey]); //String
             }
-        });
+        }));
     }
 );

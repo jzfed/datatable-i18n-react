@@ -13,17 +13,20 @@ import {
 	useAddHook,
 	usePageNavi,
 } from './customHooks';
+import { fetchData } from "./action";
+import { LoadingBar } from '../../components/loading/LoadingBar';
 import { changeLanguage, LOCALES, translate } from '../../i18n';
 
 const mapStateToProps = (state) => {
 	return {
-		$$table: state.$$table,
+		$$table: state.$$table.get('$$data'),
 		locale: state.locale,
+		isLoading: state.$$table.get('isLoading'),
 	};
 };
 
 export const EditableDataTable = connect(mapStateToProps)((props) => {
-	const { $$table, checkbox, striped, fixColumnWidth, intl, locale } = props;
+	const { $$table, checkbox, striped, fixColumnWidth, intl, locale, isLoading } = props;
 
 	const dataTableWrapperRef = useRef();
 	const tbodyDOMRef = useRef();
@@ -33,10 +36,11 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
 	const dispatch = useDispatch();
 	const tableData = $$table.toJS();
 	const tableDateLength = tableData.length;
+	const stableDispatch = useCallback(dispatch, []);
 
 	if (tableData.length > 0) indexNames.current = Object.keys(tableData[0]);
 
-	const [$$sortData, handleSort] = useSortHook();
+	const [$$sortData, handleSort] = useSortHook(stableDispatch);
 	const [
 		isSelecteAll,
 		$$selectColumnIds,
@@ -121,6 +125,7 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
 	};
 
 	useEffect(() => {
+		stableDispatch(fetchData());
 		const tableWrapperDOM = dataTableWrapperRef.current;
 		const tableWrapperTop = tableWrapperDOM.getBoundingClientRect().top;
 		const tbodyDOM = tbodyDOMRef.current;
@@ -333,7 +338,7 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
 																	sortItemBgColorArr[
 																		rowIndex
 																	],
-														  }
+														}
 														: {}
 												}
 											>
@@ -411,13 +416,16 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
 						<>
 							<tr>
 								<td colSpan="7" className="empty-data">
-									{translate('noData')}
+									{isLoading ? '' : translate('noData')}
 								</td>
 							</tr>
 						</>
 					)}
 				</tbody>
 			</table>
+			<div className={`loading-mask ${isLoading ? 'loading' : ''}`}>
+				<LoadingBar/>
+			</div>
 		</div>
 	);
 });

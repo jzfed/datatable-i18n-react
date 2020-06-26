@@ -1,14 +1,11 @@
 import { useDispatch } from 'react-redux';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { add, update, del, sort } from './action';
 import { Set, Map } from 'immutable';
 
 //Sort hook
-export const useSortHook = () => {
-	const dispatch = useDispatch();
+export const useSortHook = (stableDispatch) => {
 	const [$$sortData, setSort] = useState(Map());
-	const stableDispatch = useCallback(dispatch, []);
-
 	const handleSort = ({ sortType, sortKey }, e) => {
 		// const th = e.currentTarget;
 		const sortObj = {

@@ -1,6 +1,7 @@
 import React from 'react'
 import { CLASS_PREFIX } from '../../common/js/constant';
 import { Bars } from '../icons';
+import'./loading.scss';
 
 export const LoadingBar = (props) => {
     return (
