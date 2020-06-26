@@ -1,0 +1,185 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Mock data for datatable component.",
+    "description" : "Mock data for datatable component.",
+    "contact" : {
+      "email" : "jasonzhangod@gmail.com",
+      "name" : "Jason Zhang"
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version" : "1.0.1"
+  },
+  "servers" : [ {
+    "description" : "SwaggerHub API Auto Mocking",
+    "url" : "https://virtserver.swaggerhub.com/jzfed4/datatable-mock/1.0.1"
+  } ],
+  "tags" : [ {
+    "name" : "address",
+    "description" : "User address infomation"
+  } ],
+  "paths" : {
+    "/address" : {
+      "summary" : "Get users address book information.",
+      "description" : "Get users address book information.",
+      "get" : {
+        "summary" : "Ger uses address data.",
+        "description" : "Ger uses address data.",
+        "operationId" : "get-address",
+        "responses" : {
+          "200" : {
+            "description" : "Default error sample response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/AddressItem"
+                  }
+                },
+                "examples" : {
+                  "address" : {
+                    "value" : "[\n  {\n    \"id\": 1,\n    \"name\": \"Khali Zhang\",\n    \"location\": \"Shanghai\",\n    \"office\": \"C-103\",\n    \"officePhone\": \"x55778\",\n    \"cellPhone\": \"650-353-1239\"\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Kathy Chang\",\n    \"location\": \"Beijing\",\n    \"office\": \"C-101\",\n    \"officePhone\": \"z55778\",\n    \"cellPhone\": \"750-353-1239\"\n  },\n  {\n    \"id\": 3,\n    \"name\": \"Andy Lao\",\n    \"location\": \"Shenzhen\",\n    \"office\": \"C-104\",\n    \"officePhone\": \"d55778\",\n    \"cellPhone\": \"350-353-1239\"\n  },\n  {\n    \"id\": 4,\n    \"name\": \"Jason Zhang\",\n    \"location\": \"Shanghai\",\n    \"office\": \"C-106\",\n    \"officePhone\": \"x55778\",\n    \"cellPhone\": \"550-353-1239\"\n  },\n  {\n    \"id\": 5,\n    \"name\": \"Sarah Lee\",\n    \"location\": \"Shanghai\",\n    \"office\": \"C-306\",\n    \"officePhone\": \"x45778\",\n    \"cellPhone\": \"450-353-1239\"\n  },\n  {\n    \"id\": 6,\n    \"name\": \"William Wang\",\n    \"location\": \"Shanghai\",\n    \"office\": \"C-206\",\n    \"officePhone\": \"x55778\",\n    \"cellPhone\": \"440-455-1239\"\n  },\n  {\n    \"id\": 7,\n    \"name\": \"Josephine Qiu\",\n    \"location\": \"Shenzhen\",\n    \"office\": \"C-506\",\n    \"officePhone\": \"x85778\",\n    \"cellPhone\": \"750-353-1239\"\n  },\n  {\n    \"id\": 8,\n    \"name\": \"Caroline Liu\",\n    \"location\": \"Guangzhou\",\n    \"office\": \"C-306\",\n    \"officePhone\": \"x55778\",\n    \"cellPhone\": \"220-353-1239\"\n  },\n  {\n    \"id\": 9,\n    \"name\": \"Paul Wang\",\n    \"location\": \"Beijing\",\n    \"office\": \"A-106\",\n    \"officePhone\": \"x77778\",\n    \"cellPhone\": \"660-353-1239\"\n  },\n  {\n    \"id\": 10,\n    \"name\": \"Herry Chen\",\n    \"location\": \"Shanghai\",\n    \"office\": \"C-106\",\n    \"officePhone\": \"x55778\",\n    \"cellPhone\": \"550-353-1239\"\n  },\n  {\n    \"id\": 11,\n    \"name\": \"Cindy Xue\",\n    \"location\": \"Shanghai\",\n    \"office\": \"C-306\",\n    \"officePhone\": \"x45778\",\n    \"cellPhone\": \"450-353-1239\"\n  },\n  {\n    \"id\": 12,\n    \"name\": \"Vicky Cai\",\n    \"location\": \"Shanghai\",\n    \"office\": \"C-206\",\n    \"officePhone\": \"x55778\",\n    \"cellPhone\": \"440-455-1239\"\n  },\n  {\n    \"id\": 13,\n    \"name\": \"Jay Chou\",\n    \"location\": \"Shenzhen\",\n    \"office\": \"C-506\",\n    \"officePhone\": \"x85778\",\n    \"cellPhone\": \"750-353-1239\"\n  },\n  {\n    \"id\": 14,\n    \"name\": \"Jacky Cheng\",\n    \"location\": \"Guangzhou\",\n    \"office\": \"C-306\",\n    \"officePhone\": \"x55778\",\n    \"cellPhone\": \"220-353-1239\"\n  },\n  {\n    \"id\": 15,\n    \"name\": \"Cindy Xue\",\n    \"location\": \"Shanghai\",\n    \"office\": \"C-306\",\n    \"officePhone\": \"x45778\",\n    \"cellPhone\": \"450-353-1239\"\n  },\n  {\n    \"id\": 16,\n    \"name\": \"Vicky Cai\",\n    \"location\": \"Shanghai\",\n    \"office\": \"C-206\",\n    \"officePhone\": \"x55778\",\n    \"cellPhone\": \"440-455-1239\"\n  },\n  {\n    \"id\": 17,\n    \"name\": \"Jay Chou\",\n    \"location\": \"Shenzhen\",\n    \"office\": \"C-506\",\n    \"officePhone\": \"x85778\",\n    \"cellPhone\": \"750-353-1239\"\n  },\n  {\n    \"id\": 18,\n    \"name\": \"Jacky Cheng\",\n    \"location\": \"Guangzhou\",\n    \"office\": \"C-306\",\n    \"officePhone\": \"x55778\",\n    \"cellPhone\": \"220-353-1239\"\n  }\n]"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        },
+        "tags" : [ "address" ]
+      },
+      "post" : {
+        "tags" : [ "address" ],
+        "summary" : "Add user address information.",
+        "description" : "Add user address information.",
+        "responses" : {
+          "200" : {
+            "description" : "Default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "message" : {
+                      "type" : "string"
+                    }
+                  }
+                },
+                "example" : {
+                  "message" : "success"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/address/{userId}" : {
+      "delete" : {
+        "tags" : [ "address" ],
+        "summary" : "Delete user address information.",
+        "description" : "Delete user address information.",
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true,
+          "description" : "ID of user to delete"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "message" : {
+                      "type" : "string"
+                    }
+                  }
+                },
+                "example" : {
+                  "message" : "success"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ ]
+      },
+      "put" : {
+        "tags" : [ "address" ],
+        "summary" : "Update user address information.",
+        "description" : "Update user address information.",
+        "parameters" : [ {
+          "name" : "userId",
+          "in" : "path",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true,
+          "description" : "Update user address by userId and index"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : {
+                    "message" : {
+                      "type" : "string"
+                    }
+                  }
+                },
+                "example" : {
+                  "message" : "success"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "AddressItem" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "location" : {
+            "type" : "string"
+          },
+          "office" : {
+            "type" : "string"
+          },
+          "officePhone" : {
+            "type" : "string"
+          },
+          "cellPhone" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  }
+}
