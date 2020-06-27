@@ -45,6 +45,7 @@
 - redux-thunk
 - immutable
 - react-intl
+- OpenAPI 3.0
 
 #### Interaction Logic
 
