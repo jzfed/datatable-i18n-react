@@ -126,6 +126,9 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
 
 	useEffect(() => {
 		stableDispatch(fetchData());
+	}, []);
+
+	useEffect(() => {
 		const tableWrapperDOM = dataTableWrapperRef.current;
 		const tableWrapperTop = tableWrapperDOM.getBoundingClientRect().top;
 		const tbodyDOM = tbodyDOMRef.current;
@@ -146,7 +149,7 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
 						tbodyTrHeight
 				) * tbodyTrHeight;
 		}
-	}, []);
+	}, [isLoading, stableScrollBarWidth]);
 
 	useEffect(() => {
 		const tbodyDOM = tbodyDOMRef.current;
@@ -288,7 +291,7 @@ export const EditableDataTable = connect(mapStateToProps)((props) => {
 				</thead>
 				<tbody
 					style={{
-						maxHeight: `${maxBodyHeight.current}px`,
+						height: `${maxBodyHeight.current}px`,
 						display: $$table.size === 0 ? 'table' : 'block',
 					}}
 					ref={tbodyDOMRef}
